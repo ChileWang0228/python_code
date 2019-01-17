@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>ChileWang0228</title>
+    </head>
+    <body>
+        <h1>Hello Chile!</h1>
+        <p>Django test!</p>
+        {% block mainbody %}  {# 告诉引擎，可以重载这一部分 #}
+            <p>original</p>
+        {% endblock %}
+    </body>
+
+</html>
