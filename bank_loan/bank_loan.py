@@ -18,6 +18,9 @@ from numpy import linalg as la
 from sklearn.ensemble import GradientBoostingClassifier
 from sklearn.metrics import accuracy_score, roc_auc_score
 from sklearn.model_selection import train_test_split, GridSearchCV
+from sklearn import decomposition
+import lightgbm as lgb
+
 pd.set_option('display.max_columns', None)  # 显示所有列
 
 
@@ -47,11 +50,32 @@ def process_data(df):
     # test_list = df_train['marital'].replace('null', np.nan)
     # 需要进行独热编码的列
     one_hot_encode_columns = ['job', 'marital', 'education', 'default', 'housing',
-                              'loan', 'contact', 'month', 'poutcome']
-    predictors = ['age', 'balance', 'day', 'duration', 'campaign', 'pdays', 'previous']  # 总特征
-    encoded_df, feature = one_hot_encode(df, one_hot_encode_columns)  # 独热编码
-    predictors += feature
-    return encoded_df, predictors
+                              'loan', 'contact', 'month', 'poutcome']  # 类别特征
+    predictors = ['age', 'balance', 'day', 'duration', 'campaign', 'pdays', 'previous']  # 数值特征
+    for fea in one_hot_encode_columns:
+        df[fea] = df[fea].astype('category')
+        print(df[fea].head())
+    for fea in predictors:
+        df[fea] = df[fea].astype('float')
+    # encoded_df, feature = one_hot_encode(df, one_hot_encode_columns)  # 独热编码
+    # predictors += feature
+    # return encoded_df, predictors
+    predictors += one_hot_encode_columns  # 总特征
+    return df, predictors
+
+
+def pca_decompose(data_mat, n):
+    """
+    主成分分析降维
+    :param data_mat: 原始矩阵
+    :return:
+    """
+    pca = decomposition.PCA(n_components=n)
+    pca_data_mat = pca.fit_transform(data_mat)
+    reduction = pca.explained_variance_ratio_ .sum()  # 查看降维效果
+    print(reduction)
+    print(pca_data_mat.shape)
+    return pca_data_mat
 
 
 def svd_decompose(data_mat):
@@ -103,20 +127,27 @@ def check_model(x, y):
     拟合的模型
     :return:返回最佳模型
     """
-    parm = {
-            'max_features': range(7, 20, 2),
-            }  # 参数
-    g_search = GridSearchCV(estimator=GradientBoostingClassifier(
+    gb_model = GradientBoostingClassifier(
                             learning_rate=0.1,  # 选择模型
-                            n_estimators=75,  # 迭代次数
+                            n_estimators=2500,  # 迭代次数
                             min_samples_leaf=70,
                             max_depth=7,
                             subsample=0.85,
                             random_state=10,
                             min_samples_split=1000
-                            ),
+                            )
+    lgb_model = lgb.LGBMClassifier(boosting_type="gbdt",
+                                   num_leaves=30, reg_alpha=0, reg_lambda=0.,
+                                   max_depth=-1, n_estimators=2500, objective='binary', metric='auc',
+                                   subsample=0.9, colsample_bytree=0.7, subsample_freq=1,
+                                   learning_rate=0.1,
+                                   random_state=2018)
+    parm = {
+            # 'max_features': range(7, 20, 2), # 最大特征数
+            }  # 参数
+    g_search = GridSearchCV(estimator=lgb_model,
                             param_grid=parm,  # 参数
-                            cv=3,  # 五折交叉验证
+                            cv=10,  # 五折交叉验证
                             n_jobs=-1,  # -1 means using all processors
                             verbose=1  # verbose：日志冗长度，int：冗长度，0：不输出训练过程，1：偶尔输出，>1：对每个子模型都输出。
                             )
@@ -161,10 +192,18 @@ def pre_process_data():
     train_set, predictors = process_data(df_train)  # 经过数值化处理的训练数据集
     test_set = process_data(df_test)[0]  # 经过数值化处理的测试数据集
     # print(train_set[predictors].as_matrix())
-    # svd_train_set = build_new_mat(train_set[predictors].as_matrix())  # DF转矩阵
-
+    # n_components = 15  # pca的维度
+    # new_pridictors = ['a' + str(i) for i in range(n_components)]  # 降维后的新特征
+    # pca_train_set = pd.DataFrame(pca_decompose(train_set[predictors].as_matrix(), n_components), columns=new_pridictors)  # DF转矩阵
+    # pca_test_set = pd.DataFrame(pca_decompose(test_set[predictors].as_matrix(), n_components), columns=new_pridictors)  # DF转矩阵
+    # pca_train_set['y'] = train_set['y']
+    # pca_train_set['ID'] = train_set['ID']
+    # pca_test_set['ID'] = test_set['ID']
     train_set, valid_set = train_test_split(train_set, test_size=0.2, stratify=train_set['y'], random_state=100)
+    # train_set, valid_set = train_test_split(pca_train_set, test_size=0.2, stratify=pca_train_set['y'], random_state=100)
     return train_set, valid_set, test_set, predictors
+
+    # return train_set, valid_set, pca_test_set, new_pridictors
 
 
 def main():
@@ -172,6 +211,7 @@ def main():
     模型训练及预测结果
     :return:
     """
+    # train_set, valid_set, test_set, predictors = pre_process_data()
     train_set, valid_set, test_set, predictors = pre_process_data()
     # 训练集
     x = train_set[predictors]
@@ -202,3 +242,4 @@ def main():
 
 if __name__ == '__main__':
     main()
+    # pre_process_data()
