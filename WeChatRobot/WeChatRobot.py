@@ -76,7 +76,7 @@ def reply_group_at(msg):
         return ret
 
 
-dormitory = bot.groups().search('410')[0]  # 研究生宿舍群
+dormitory = bot.groups().search('猪年大吉')[0]  # 研究生宿舍群
 
 
 @bot.register(dormitory)
