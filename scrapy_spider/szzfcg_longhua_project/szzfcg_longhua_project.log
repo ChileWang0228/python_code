@@ -1,0 +1,788 @@
+2019-02-15 16:37:50 [scrapy.core.scraper] ERROR: Spider error processing <GET http://www.szzfcg.cn/portal/documentView.do?method=view&id=282377090> (referer: None)
+Traceback (most recent call last):
+  File "/root/anaconda3/lib/python3.7/site-packages/twisted/internet/defer.py", line 654, in _runCallbacks
+    current.result = callback(current.result, *args, **kw)
+  File "/usr/local/python_code/scrapy_spider/szzfcg_longhua_project/szzfcg_longhua_project/spiders/szzfcg_longhua_project_spider.py", line 15, in parse
+    bidding_name_position = html_content.xpath(".//*/h3")[1]
+  File "/root/anaconda3/lib/python3.7/site-packages/parsel/selector.py", line 61, in __getitem__
+    o = super(SelectorList, self).__getitem__(pos)
+IndexError: list index out of range
+2019-02-15 16:37:59 [scrapy.core.scraper] ERROR: Spider error processing <GET http://www.szzfcg.cn/portal/documentView.do?method=view&id=282377090> (referer: None)
+Traceback (most recent call last):
+  File "/root/anaconda3/lib/python3.7/site-packages/twisted/internet/defer.py", line 654, in _runCallbacks
+    current.result = callback(current.result, *args, **kw)
+  File "/usr/local/python_code/scrapy_spider/szzfcg_longhua_project/szzfcg_longhua_project/spiders/szzfcg_longhua_project_spider.py", line 14, in parse
+    bidding_name_position = html_content.xpath(".//*/h3")[1]
+  File "/root/anaconda3/lib/python3.7/site-packages/parsel/selector.py", line 61, in __getitem__
+    o = super(SelectorList, self).__getitem__(pos)
+IndexError: list index out of range
+2019-02-15 16:38:11 [scrapy.core.scraper] ERROR: Spider error processing <GET http://www.szzfcg.cn/portal/documentView.do?method=view&id=282377090> (referer: None)
+Traceback (most recent call last):
+  File "/root/anaconda3/lib/python3.7/site-packages/twisted/internet/defer.py", line 654, in _runCallbacks
+    current.result = callback(current.result, *args, **kw)
+  File "/usr/local/python_code/scrapy_spider/szzfcg_longhua_project/szzfcg_longhua_project/spiders/szzfcg_longhua_project_spider.py", line 14, in parse
+    bidding_name_position = html_content.xpath(".//*/h3")[1]
+  File "/root/anaconda3/lib/python3.7/site-packages/parsel/selector.py", line 61, in __getitem__
+    o = super(SelectorList, self).__getitem__(pos)
+IndexError: list index out of range
+2019-02-15 16:38:26 [scrapy.core.scraper] ERROR: Spider error processing <GET http://www.szzfcg.cn/portal/documentView.do?method=view&id=282377090> (referer: None)
+Traceback (most recent call last):
+  File "/root/anaconda3/lib/python3.7/site-packages/twisted/internet/defer.py", line 654, in _runCallbacks
+    current.result = callback(current.result, *args, **kw)
+  File "/usr/local/python_code/scrapy_spider/szzfcg_longhua_project/szzfcg_longhua_project/spiders/szzfcg_longhua_project_spider.py", line 16, in parse
+    bidding_name = bidding_name_position.xpath(".//*/span/text()").extract()[0]
+IndexError: list index out of range
+2019-02-15 16:43:09 [scrapy.core.scraper] ERROR: Spider error processing <GET http://www.szzfcg.cn/portal/documentView.do?method=view&id=282377090> (referer: None)
+Traceback (most recent call last):
+  File "/root/anaconda3/lib/python3.7/site-packages/twisted/internet/defer.py", line 654, in _runCallbacks
+    current.result = callback(current.result, *args, **kw)
+  File "/usr/local/python_code/scrapy_spider/szzfcg_longhua_project/szzfcg_longhua_project/spiders/szzfcg_longhua_project_spider.py", line 16, in parse
+    bidding_name = bidding_name_position.xpath(".//*/span/text()").extract()[0]
+IndexError: list index out of range
+2019-02-15 16:43:27 [scrapy.core.scraper] ERROR: Spider error processing <GET http://www.szzfcg.cn/portal/documentView.do?method=view&id=282377090> (referer: None)
+Traceback (most recent call last):
+  File "/root/anaconda3/lib/python3.7/site-packages/twisted/internet/defer.py", line 654, in _runCallbacks
+    current.result = callback(current.result, *args, **kw)
+  File "/usr/local/python_code/scrapy_spider/szzfcg_longhua_project/szzfcg_longhua_project/spiders/szzfcg_longhua_project_spider.py", line 16, in parse
+    bidding_name = bidding_name_position.xpath(".//*/span/text()").extract()[0]
+IndexError: list index out of range
+2019-02-15 17:00:01 [scrapy.core.scraper] ERROR: Spider error processing <GET http://www.szzfcg.cn/portal/documentView.do?method=view&id=282377090> (referer: None)
+Traceback (most recent call last):
+  File "/root/anaconda3/lib/python3.7/site-packages/twisted/internet/defer.py", line 654, in _runCallbacks
+    current.result = callback(current.result, *args, **kw)
+  File "/usr/local/python_code/scrapy_spider/szzfcg_longhua_project/szzfcg_longhua_project/spiders/szzfcg_longhua_project_spider.py", line 22, in parse
+    with open('bidding_content.txt') as fw:
+FileNotFoundError: [Errno 2] No such file or directory: 'bidding_content.txt'
+2019-02-15 17:00:23 [scrapy.core.scraper] ERROR: Spider error processing <GET http://www.szzfcg.cn/portal/documentView.do?method=view&id=282377090> (referer: None)
+Traceback (most recent call last):
+  File "/root/anaconda3/lib/python3.7/site-packages/twisted/internet/defer.py", line 654, in _runCallbacks
+    current.result = callback(current.result, *args, **kw)
+  File "/usr/local/python_code/scrapy_spider/szzfcg_longhua_project/szzfcg_longhua_project/spiders/szzfcg_longhua_project_spider.py", line 22, in parse
+    with open('bidding_content.txt') as fw:
+FileNotFoundError: [Errno 2] No such file or directory: 'bidding_content.txt'
+2019-02-15 21:15:58 [scrapy.core.scraper] ERROR: Spider error processing <GET http://www.szzfcg.cn/portal/documentView.do?method=view&id=282377090> (referer: None)
+Traceback (most recent call last):
+  File "/root/anaconda3/lib/python3.7/site-packages/twisted/internet/defer.py", line 654, in _runCallbacks
+    current.result = callback(current.result, *args, **kw)
+  File "/usr/local/python_code/scrapy_spider/szzfcg_longhua_project/szzfcg_longhua_project/spiders/szzfcg_longhua_project_spider.py", line 25, in parse
+    bidding_url = bidding_url_position.xpath('/a/@href')[0]
+  File "/root/anaconda3/lib/python3.7/site-packages/parsel/selector.py", line 61, in __getitem__
+    o = super(SelectorList, self).__getitem__(pos)
+IndexError: list index out of range
+2019-02-15 21:16:11 [scrapy.core.scraper] ERROR: Spider error processing <GET http://www.szzfcg.cn/portal/documentView.do?method=view&id=282377090> (referer: None)
+Traceback (most recent call last):
+  File "/root/anaconda3/lib/python3.7/site-packages/twisted/internet/defer.py", line 654, in _runCallbacks
+    current.result = callback(current.result, *args, **kw)
+  File "/usr/local/python_code/scrapy_spider/szzfcg_longhua_project/szzfcg_longhua_project/spiders/szzfcg_longhua_project_spider.py", line 26, in parse
+    bidding_url = bidding_url_position.xpath('/a/@href')[0]
+  File "/root/anaconda3/lib/python3.7/site-packages/parsel/selector.py", line 61, in __getitem__
+    o = super(SelectorList, self).__getitem__(pos)
+IndexError: list index out of range
+2019-02-15 21:16:24 [scrapy.core.scraper] ERROR: Spider error processing <GET http://www.szzfcg.cn/portal/documentView.do?method=view&id=282377090> (referer: None)
+Traceback (most recent call last):
+  File "/root/anaconda3/lib/python3.7/site-packages/twisted/internet/defer.py", line 654, in _runCallbacks
+    current.result = callback(current.result, *args, **kw)
+  File "/usr/local/python_code/scrapy_spider/szzfcg_longhua_project/szzfcg_longhua_project/spiders/szzfcg_longhua_project_spider.py", line 26, in parse
+    bidding_url = bidding_url_position.xpath('./a/@href')[0]
+  File "/root/anaconda3/lib/python3.7/site-packages/parsel/selector.py", line 61, in __getitem__
+    o = super(SelectorList, self).__getitem__(pos)
+IndexError: list index out of range
+2019-02-15 21:16:38 [scrapy.core.scraper] ERROR: Spider error processing <GET http://www.szzfcg.cn/portal/documentView.do?method=view&id=282377090> (referer: None)
+Traceback (most recent call last):
+  File "/root/anaconda3/lib/python3.7/site-packages/twisted/internet/defer.py", line 654, in _runCallbacks
+    current.result = callback(current.result, *args, **kw)
+  File "/usr/local/python_code/scrapy_spider/szzfcg_longhua_project/szzfcg_longhua_project/spiders/szzfcg_longhua_project_spider.py", line 26, in parse
+    bidding_url = bidding_url_position.xpath('.//*/a/@href')[0]
+  File "/root/anaconda3/lib/python3.7/site-packages/parsel/selector.py", line 61, in __getitem__
+    o = super(SelectorList, self).__getitem__(pos)
+IndexError: list index out of range
+2019-02-15 21:19:07 [scrapy.core.scraper] ERROR: Spider error processing <GET http://www.szzfcg.cn/portal/documentView.do?method=view&id=282377090> (referer: None)
+Traceback (most recent call last):
+  File "/root/anaconda3/lib/python3.7/site-packages/twisted/internet/defer.py", line 654, in _runCallbacks
+    current.result = callback(current.result, *args, **kw)
+  File "/usr/local/python_code/scrapy_spider/szzfcg_longhua_project/szzfcg_longhua_project/spiders/szzfcg_longhua_project_spider.py", line 25, in parse
+    bidding_url = bidding_url_position.xpath("/@href").extract()[0]  # 项目链接
+IndexError: list index out of range
+2019-02-15 21:19:17 [scrapy.core.scraper] ERROR: Spider error processing <GET http://www.szzfcg.cn/portal/documentView.do?method=view&id=282377090> (referer: None)
+Traceback (most recent call last):
+  File "/root/anaconda3/lib/python3.7/site-packages/twisted/internet/defer.py", line 654, in _runCallbacks
+    current.result = callback(current.result, *args, **kw)
+  File "/usr/local/python_code/scrapy_spider/szzfcg_longhua_project/szzfcg_longhua_project/spiders/szzfcg_longhua_project_spider.py", line 26, in parse
+    bidding_url = bidding_url_position.xpath("/@href").extract()[0]  # 项目链接
+IndexError: list index out of range
+2019-02-15 21:25:13 [scrapy.core.scraper] ERROR: Spider error processing <GET http://www.szzfcg.cn/portal/documentView.do?method=view&id=282377090> (referer: None)
+Traceback (most recent call last):
+  File "/root/anaconda3/lib/python3.7/site-packages/twisted/internet/defer.py", line 654, in _runCallbacks
+    current.result = callback(current.result, *args, **kw)
+  File "/usr/local/python_code/scrapy_spider/szzfcg_longhua_project/szzfcg_longhua_project/spiders/szzfcg_longhua_project_spider.py", line 24, in parse
+    bidding_tenderee_position = html_content.xpath("./ol")[-1][-1]
+TypeError: 'Selector' object does not support indexing
+2019-02-15 21:44:21 [scrapy.core.scraper] ERROR: Spider must return Request, BaseItem, dict or None, got 'SzzcfgLonghuaProjectSpider' in <GET http://www.szzfcg.cn/portal/documentView.do?method=view&id=282377090>
+2019-02-15 22:04:19 [szzfcg_longhua_project.pipelines] WARNING: {'bidding_agency': '',
+ 'bidding_block': '本项目实行网上投标，采用电子投标文件。 ',
+ 'bidding_content': '\r\n'
+                    '\t\t\t\t\t\t\t\t深圳市龙华区公共资源交易中心\r\n'
+                    '\t\t\t\t\t\t\t\t公开招标公告 \r\n'
+                    '\t\t\t\t\t\t\t\t\r\n'
+                    '\t\t\t\t\t\t\t\t\xa0\xa0\xa0\xa0\xa0\xa0\xa0\xa0\xa0 '
+                    '根据《深圳经济特区政府采购条例》、《深圳经济特区政府采购条例实施细则》和《深圳网上政府采购管理暂行办法》的有关规定，深圳市龙华区公共资源交易中心就龙华市政公司2018-2019年度余泥渣土清运服务项目第三次招标项目，采用公开招标的方式实施采购，欢迎符合资格的供应商参加投标。 \r\n'
+                    '\t\t\t\t\t\t\t\t一、项目编号：LHQCG2019017182\r\n'
+                    '\t\t\t\t\t\t\t\t'
+                    '二、项目名称：龙华市政公司2018-2019年度余泥渣土清运服务项目第三次招标\r\n'
+                    '\t\t\t\t\t\t\t\t三、项目概况：详见招标文件\r\n'
+                    '\t\t\t\t\t\t\t\t\xa0\xa0\xa0\xa0\r\n'
+                    '\t\t\t\t\t\t\t\t四、投标人资格要求：\r\n'
+                    '\t\t\t\t\t\t\t\t'
+                    '1.在中国境内注册的独立法人或非法人组织（独立法人提供营业执照扫描件/非法人组织则提供相应证照扫描件）；\r\n'
+                    '\t\t\t\t\t\t\t\t'
+                    '2.投标人需提供通过“信用中国”网（www.creditchina.gov.cn）信用信息查询记录网络截图，如在截图中存在“限制或禁止参与政府采购活动”的处罚，则从其处罚的时段及范围要求，非企业则无需提供（模板详见 '
+                    '招标文件相应章节）\r\n'
+                    '\t\t\t\t\t\t\t\t3.投标人必须按照招标文件所提供的《政府采购投标及履约承诺函》进行承诺（详见 '
+                    '招标文件相应章节）\r\n'
+                    '\t\t\t\t\t\t\t\t'
+                    '4.近三年内（投标人成立不足三年的可从成立之日起算）在经营活动中没有重大违法经营记录和投标时不存在处于被禁止参与政府采购活动期限内情形的书面声明函（详见招标文件相应章节）\r\n'
+                    '\t\t\t\t\t\t\t\t5.本项目不接受联合体投标，不允许分包、转包；\r\n'
+                    '\t\t\t\t\t\t\t\t\r\n'
+                    '\t\t\t\t\t\t\t\t五、采购预算：3536400.00\r\n'
+                    '\t\t\t\t\t\t\t\t\r\n'
+                    '\t\t\t\t\t\t\t\t\r\n'
+                    '\t\t\t\t\t\t\t\t\t\r\n'
+                    '\t\t\t\t\t\t\t\t\t\t\r\n'
+                    '\t\t\t\t\t\t\t\t\t\t\t\r\n'
+                    '\t\t\t\t\t\t\t\t\t\t\t采购条目流水号\r\n'
+                    '\t\t\t\t\t\t\t\t\t\t\t\r\n'
+                    '\t\t\t\t\t\t\t\t\t\t\t\r\n'
+                    '\t\t\t\t\t\t\t\t\t\t\t采购品名\r\n'
+                    '\t\t\t\t\t\t\t\t\t\t\t\r\n'
+                    '\t\t\t\t\t\t\t\t\t\t\t\r\n'
+                    '\t\t\t\t\t\t\t\t\t\t\t预算金额（单位：元）\r\n'
+                    '\t\t\t\t\t\t\t\t\t\t\t\r\n'
+                    '\t\t\t\t\t\t\t\t\t\t\t\r\n'
+                    '\t\t\t\t\t\t\t\t\t\t\t数量\r\n'
+                    '\t\t\t\t\t\t\t\t\t\t\t\r\n'
+                    '\t\t\t\t\t\t\t\t\t\t\t\r\n'
+                    '\t\t\t\t\t\t\t\t\t\t\t单位\r\n'
+                    '\t\t\t\t\t\t\t\t\t\t\t\r\n'
+                    '\t\t\t\t\t\t\t\t\t\t\r\n'
+                    '\t\t\t\t\t\t\t\t\t\t\r\n'
+                    '\t\t\t\t\t\t\t\t\t\t\t\r\n'
+                    '\t\t\t\t\t\t\t\t\t\t\t224592799\r\n'
+                    '\t\t\t\t\t\t\t\t\t\t\t\r\n'
+                    '\t\t\t\t\t\t\t\t\t\t\t\r\n'
+                    '\t\t\t\t\t\t\t\t\t\t\t龙华市政公司2018-2019年度余泥渣土清运服务项目\r\n'
+                    '\t\t\t\t\t\t\t\t\t\t\t\r\n'
+                    '\t\t\t\t\t\t\t\t\t\t\t\r\n'
+                    '\t\t\t\t\t\t\t\t\t\t\t3536400.00\r\n'
+                    '\t\t\t\t\t\t\t\t\t\t\t\r\n'
+                    '\t\t\t\t\t\t\t\t\t\t\t\r\n'
+                    '\t\t\t\t\t\t\t\t\t\t\t15000.0\r\n'
+                    '\t\t\t\t\t\t\t\t\t\t\t\r\n'
+                    '\t\t\t\t\t\t\t\t\t\t\t\r\n'
+                    '\t\t\t\t\t\t\t\t\t\t\t立方米\r\n'
+                    '\t\t\t\t\t\t\t\t\t\t\t\r\n'
+                    '\t\t\t\t\t\t\t\t\t\t\r\n'
+                    '\t\t\t\t\t\t\t\t\t\t\r\n'
+                    '\t\t\t\t\t\t\t\t\t\t\t合计（单位：元）:\xa03536400.00\r\n'
+                    '\t\t\t\t\t\t\t\t\t\t\r\n'
+                    '\t\t\t\t\t\t\t\t\t\r\n'
+                    '\t\t\t\t\t\t\t\t\r\n'
+                    '\t\t\t\t\t\t\t\t\r\n'
+                    '\t\t\t\t\t\t\t\t六、投标与开标注意事项： \r\n'
+                    '\t\t\t\t\t\t\t\t\r\n'
+                    '\t\t\t\t\t\t\t\t\t本项目实行网上投标，采用电子投标文件。 \r\n'
+                    '\t\t\t\t\t\t\t\t\t标书获得方法 \r\n'
+                    '\t\t\t\t\t\t\t\t\t\xa0\xa0\xa0\xa0\xa0\xa0\xa0 '
+                    '凡已注册的深圳市网上政府采购供应商，按照授予的操作权限，可于 2019年02月15日 '
+                    '18:00至2019年02月25日 14:30 '
+                    '时期间登录深圳市龙华区公共资源交易中心网站（http://lhxq.szzfcg.cn）下载本项目的招标文件。投标人如确定参加投标，首先要在深圳市龙华区公共资源交易中心网站报名投标，方法为登录深圳市龙华区公共资源交易中心网站后点击“应标管理→投标响应”或“应标管理→确认邀请”；如果网上报名后又不参加投标，应再点击“拒绝”或“撤销”；如果是未注册为深圳政府采购的供应商，请访问深圳政府采购网站,先办理注册手续并缴纳投标保证金，再进行投标报名。在网上报名后，点击“应标管理→下载招标文件”进行招标文件的下载。 \r\n'
+                    '\t\t\t\t\t\t\t\t\t答疑事项 \r\n'
+                    '\t\t\t\t\t\t\t\t\t\xa0\xa0\xa0\xa0\xa0\xa0\xa0 '
+                    '2019年02月21日 '
+                    '14:30时前凡对招标文件有任何疑问的（包括认为招标文件的技术指标或参数存在倾向性或不公正性条款），登录“深圳市龙华区公共资源交易中心网站”，在“应标管理→投标答疑”中填写疑问，逾期不予受理。 '
+                    '将答疑结果在“应标管理→投标答疑”中公布，望投标人予以关注。 \r\n'
+                    '\t\t\t\t\t\t\t\t\t投标截止时间 \r\n'
+                    '\t\t\t\t\t\t\t\t\t\xa0\xa0\xa0\xa0\xa0\xa0\xa0 '
+                    '所有投标文件应于2019年02月26日 '
+                    '14:30时之前上传到深圳市龙华区公共资源交易中心网站。具体操作为登录“深圳市龙华区公共资源交易中心网站”，用“应标管理→上传投标文件”功能点上传投标文件。本项目电子投标文件最大容量为100MB，超过此容量的文件将被拒绝。 \r\n'
+                    '\t\t\t\t\t\t\t\t\t开标时间和地点 \r\n'
+                    '\t\t\t\t\t\t\t\t\t\xa0\xa0\xa0\xa0\xa0\xa0\xa0 '
+                    '定于2019年02月26日 '
+                    '14:30时，在深圳市龙华区公共资源交易中心公开开标。供应商可以登录“深圳市龙华区公共资源交易中心网站”，用“采购项目查询及管理→查看开标一览表”功能点查询开标情况。 \r\n'
+                    '\t\t\t\t\t\t\t\t\r\n'
+                    '\t\t\t\t\t\t\t\t七、重要提示：\r\n'
+                    '\t\t\t\t\t\t\t\t\r\n'
+                    '\t\t\t\t\t\t\t\t\t'
+                    '深圳市龙华区公共资源交易中心有权对中标供应商就本项目资格条款要求提供的相关证明资料（原件）进行审查。供应商提供虚假资料被查实的，则可能面临被取消本项目中标资格、列入不良行为记录名单、投标保证金不予退还和三年内禁止参与深圳市政府采购活动的风险。 \r\n'
+                    '\t\t\t\t\t\t\t\t\t'
+                    '本项目的招标文件规定了投标文件目录结构，各投标人应按目录结构要求编制投标文件，在投标文件目录中属于本节点内容的必须在本节点中填写，填写到其他节点或附件致难以查找的将可能导致废标，一切后果由供应商自行承担。 \r\n'
+                    '\t\t\t\t\t\t\t\t\t'
+                    '本招标公告及本项目招标文件所涉及的时间一律为北京时间。投标人有义务在招标活动期间浏览深圳市龙华区公共资源交易中心网站（http://lhxq.szzfcg.cn），在深圳市龙华区公共资源交易中心网上公布的与本次招标项目有关的信息视为已送达各投标人。 \r\n'
+                    '\t\t\t\t\t\t\t\t\t交纳投标保证金： \r\n'
+                    '\t\t\t\t\t\t\t\t\t（1）所有项目必须交纳投标保证金； \r\n'
+                    '\t\t\t\t\t\t\t\t\t'
+                    '（2）投标保证金的金额：人民币10000元（大写：壹万元），招标文件对投标保证金金额另有规定的，按招标文件规定交纳； \r\n'
+                    '\t\t\t\t\t\t\t\t\t（3）交纳时间：开标日前两个工作日，以银行到账为准。 \r\n'
+                    '\t\t\t\t\t\t\t\t\t'
+                    '（4）交纳方式：投标保证金必须是从投标人单位的基本账户以银行转账或网银转账的方式单笔、准确、足额转入投标保证金指定账号中。不接受以现金或单位结算卡等方式提交投标保证金。 \r\n'
+                    '\t\t\t\t\t\t\t\t\t\xa0\xa0\xa0\xa0\xa0\xa0\xa0\xa0\xa0'
+                    '开户名称：深圳市政府采购中心 \r\n'
+                    '\t\t\t\t\t\t\t\t\t\xa0\xa0\xa0\xa0\xa0\xa0\xa0\xa0\xa0'
+                    '开户银行：平安银行股份有限公司深圳分行营业部 \r\n'
+                    '\t\t\t\t\t\t\t\t\t\xa0\xa0\xa0\xa0\xa0\xa0\xa0\xa0\xa0'
+                    '银行账户：0012 1002 0054 9 \r\n'
+                    '\t\t\t\t\t\t\t\t\t\xa0\xa0\xa0\xa0\xa0\xa0\xa0\xa0\xa0'
+                    '行\u3000\u3000号：307584021015 \r\n'
+                    '\t\t\t\t\t\t\t\t\t（5）退还方式：依申请退还。 \r\n'
+                    '\t\t\t\t\t\t\t\t\t\xa0\xa0\xa0\xa0\xa0\xa0\xa0\xa0\xa0'
+                    '投标结束后，供应商可登陆“深圳政府采购网”(http://www.cgzx.sz.gov.cn/)，点击“供应商保证金业务办理”栏目，了解投标保证金退还相关规定，并依规办理退还手续。若未申请退还，可继续参加投标，招标文件另有要求的除外。 \r\n'
+                    '\t\t\t\t\t\t\t\t\t（6）保证金咨询电话：0755-83948155。 \r\n'
+                    '\t\t\t\t\t\t\t\t\r\n'
+                    '\t\t\t\t\t\t\t\t八、联系方式\r\n'
+                    '\t\t\t\t\t\t\t\t\r\n'
+                    '\t\t\t\t\t\t\t\t\t招标组织机构\r\n'
+                    '\t\t\t\t\t\t\t\t\t单位名称：深圳市龙华区公共资源交易中心\r\n'
+                    '\t\t\t\t\t\t\t\t\t详细地址：深圳市龙华区国鸿大厦7栋A座11楼\r\n'
+                    '\t\t\t\t\t\t\t\t\t项目经办人：郭工\r\n'
+                    '\t\t\t\t\t\t\t\t\t联系电话：23338582\r\n'
+                    '\t\t\t\t\t\t\t\t\t传真电话：0755-23338438\r\n'
+                    '\t\t\t\t\t\t\t\t\t'
+                    '网上操作咨询：23338402，23338582（若下载招标文件有困难，请与我们联系）\r\n'
+                    '\t\t\t\t\t\t\t\t\t注册咨询：83938966 \r\n'
+                    '\t\t\t\t\t\t\t\t\t电子密钥咨询：83948165或 4008301330\r\n'
+                    '\t\t\t\t\t\t\t\t\t\r\n'
+                    '\t\t\t\t\t\t\t\t\t采购单位 \r\n'
+                    '\t\t\t\t\t\t\t\t\t单位名称：深圳市龙华市政管理有限公司 \r\n'
+                    '\t\t\t\t\t\t\t\t\t项目联系人：陈湛韬 \r\n'
+                    '\t\t\t\t\t\t\t\t\t联系方式：13670050851 \r\n'
+                    '\t\t\t\t\t\t\t\t\t\r\n'
+                    '\t\t\t\t\t\t\t\t\r\n'
+                    '\t\t\t\t\t\t\t\t\r\n'
+                    '\t\t\t\t\t\t\t\t九、招标文件：\r\n'
+                    '\t\t\t\t\t\t\t\t\xa0\xa0\xa0\xa0\xa0\xa0\xa0\xa0\xa0 '
+                    '-点此下载- \r\n'
+                    '\t\t\t\t\t\t\t\t\r\n'
+                    '\t\t\t\t\t\t\t\t\r\n'
+                    '\t\t\t\t\t\t\t\t\r\n'
+                    '\t\t\t\t\t\t\t\t深圳市龙华区公共资源交易中心\xa0\r\n'
+                    '\t\t\t\t\t\t\t\t2019年02月15日 \r\n'
+                    '\t\t\t\t\t\t\t\t\r\n'
+                    '\t\t\t\t\t\t\t\t',
+ 'bidding_end_time': '开标时间和地点 \r\n'
+                     '\t\t\t\t\t\t\t\t\t\xa0\xa0\xa0\xa0\xa0\xa0\xa0 '
+                     '定于2019年02月26日 '
+                     '14:30时，在深圳市龙华区公共资源交易中心公开开标。供应商可以登录“深圳市龙华区公共资源交易中心网站”，用“采购项目查询及管理→查看开标一览表”功能点查询开标情况。 ',
+ 'bidding_name': '龙华市政公司2018-2019年度余泥渣土清运服务项目第三次招标',
+ 'bidding_open_time': '投标截止时间 \r\n'
+                      '\t\t\t\t\t\t\t\t\t\xa0\xa0\xa0\xa0\xa0\xa0\xa0 '
+                      '所有投标文件应于2019年02月26日 '
+                      '14:30时之前上传到深圳市龙华区公共资源交易中心网站。具体操作为登录“深圳市龙华区公共资源交易中心网站”，用“应标管理→上传投标文件”功能点上传投标文件。本项目电子投标文件最大容量为100MB，超过此容量的文件将被拒绝。 ',
+ 'bidding_tenderee': '采购单位 \r\n'
+                     '\t\t\t\t\t\t\t\t\t单位名称：深圳市龙华市政管理有限公司 \r\n'
+                     '\t\t\t\t\t\t\t\t\t项目联系人：陈湛韬 \r\n'
+                     '\t\t\t\t\t\t\t\t\t联系方式：13670050851 \r\n'
+                     '\t\t\t\t\t\t\t\t\t',
+ 'bidding_url': 'http://www.szzfcg.cn/stock/fileDown.do?method=downLoadByStprId&stprId=280888265',
+ 'ip': '',
+ 'publish_time': '',
+ 'website_name': '深圳市龙华区公共资源交易中心'}
+2019-02-15 22:04:55 [szzfcg_longhua_project.pipelines] WARNING: {'bidding_agency': '',
+ 'bidding_block': '本项目实行网上投标，采用电子投标文件。 ',
+ 'bidding_content': '\r\n'
+                    '\t\t\t\t\t\t\t\t深圳市龙华区公共资源交易中心\r\n'
+                    '\t\t\t\t\t\t\t\t公开招标公告 \r\n'
+                    '\t\t\t\t\t\t\t\t\r\n'
+                    '\t\t\t\t\t\t\t\t\xa0\xa0\xa0\xa0\xa0\xa0\xa0\xa0\xa0 '
+                    '根据《深圳经济特区政府采购条例》、《深圳经济特区政府采购条例实施细则》和《深圳网上政府采购管理暂行办法》的有关规定，深圳市龙华区公共资源交易中心就龙华市政公司2018-2019年度余泥渣土清运服务项目第三次招标项目，采用公开招标的方式实施采购，欢迎符合资格的供应商参加投标。 \r\n'
+                    '\t\t\t\t\t\t\t\t一、项目编号：LHQCG2019017182\r\n'
+                    '\t\t\t\t\t\t\t\t'
+                    '二、项目名称：龙华市政公司2018-2019年度余泥渣土清运服务项目第三次招标\r\n'
+                    '\t\t\t\t\t\t\t\t三、项目概况：详见招标文件\r\n'
+                    '\t\t\t\t\t\t\t\t\xa0\xa0\xa0\xa0\r\n'
+                    '\t\t\t\t\t\t\t\t四、投标人资格要求：\r\n'
+                    '\t\t\t\t\t\t\t\t'
+                    '1.在中国境内注册的独立法人或非法人组织（独立法人提供营业执照扫描件/非法人组织则提供相应证照扫描件）；\r\n'
+                    '\t\t\t\t\t\t\t\t'
+                    '2.投标人需提供通过“信用中国”网（www.creditchina.gov.cn）信用信息查询记录网络截图，如在截图中存在“限制或禁止参与政府采购活动”的处罚，则从其处罚的时段及范围要求，非企业则无需提供（模板详见 '
+                    '招标文件相应章节）\r\n'
+                    '\t\t\t\t\t\t\t\t3.投标人必须按照招标文件所提供的《政府采购投标及履约承诺函》进行承诺（详见 '
+                    '招标文件相应章节）\r\n'
+                    '\t\t\t\t\t\t\t\t'
+                    '4.近三年内（投标人成立不足三年的可从成立之日起算）在经营活动中没有重大违法经营记录和投标时不存在处于被禁止参与政府采购活动期限内情形的书面声明函（详见招标文件相应章节）\r\n'
+                    '\t\t\t\t\t\t\t\t5.本项目不接受联合体投标，不允许分包、转包；\r\n'
+                    '\t\t\t\t\t\t\t\t\r\n'
+                    '\t\t\t\t\t\t\t\t五、采购预算：3536400.00\r\n'
+                    '\t\t\t\t\t\t\t\t\r\n'
+                    '\t\t\t\t\t\t\t\t\r\n'
+                    '\t\t\t\t\t\t\t\t\t\r\n'
+                    '\t\t\t\t\t\t\t\t\t\t\r\n'
+                    '\t\t\t\t\t\t\t\t\t\t\t\r\n'
+                    '\t\t\t\t\t\t\t\t\t\t\t采购条目流水号\r\n'
+                    '\t\t\t\t\t\t\t\t\t\t\t\r\n'
+                    '\t\t\t\t\t\t\t\t\t\t\t\r\n'
+                    '\t\t\t\t\t\t\t\t\t\t\t采购品名\r\n'
+                    '\t\t\t\t\t\t\t\t\t\t\t\r\n'
+                    '\t\t\t\t\t\t\t\t\t\t\t\r\n'
+                    '\t\t\t\t\t\t\t\t\t\t\t预算金额（单位：元）\r\n'
+                    '\t\t\t\t\t\t\t\t\t\t\t\r\n'
+                    '\t\t\t\t\t\t\t\t\t\t\t\r\n'
+                    '\t\t\t\t\t\t\t\t\t\t\t数量\r\n'
+                    '\t\t\t\t\t\t\t\t\t\t\t\r\n'
+                    '\t\t\t\t\t\t\t\t\t\t\t\r\n'
+                    '\t\t\t\t\t\t\t\t\t\t\t单位\r\n'
+                    '\t\t\t\t\t\t\t\t\t\t\t\r\n'
+                    '\t\t\t\t\t\t\t\t\t\t\r\n'
+                    '\t\t\t\t\t\t\t\t\t\t\r\n'
+                    '\t\t\t\t\t\t\t\t\t\t\t\r\n'
+                    '\t\t\t\t\t\t\t\t\t\t\t224592799\r\n'
+                    '\t\t\t\t\t\t\t\t\t\t\t\r\n'
+                    '\t\t\t\t\t\t\t\t\t\t\t\r\n'
+                    '\t\t\t\t\t\t\t\t\t\t\t龙华市政公司2018-2019年度余泥渣土清运服务项目\r\n'
+                    '\t\t\t\t\t\t\t\t\t\t\t\r\n'
+                    '\t\t\t\t\t\t\t\t\t\t\t\r\n'
+                    '\t\t\t\t\t\t\t\t\t\t\t3536400.00\r\n'
+                    '\t\t\t\t\t\t\t\t\t\t\t\r\n'
+                    '\t\t\t\t\t\t\t\t\t\t\t\r\n'
+                    '\t\t\t\t\t\t\t\t\t\t\t15000.0\r\n'
+                    '\t\t\t\t\t\t\t\t\t\t\t\r\n'
+                    '\t\t\t\t\t\t\t\t\t\t\t\r\n'
+                    '\t\t\t\t\t\t\t\t\t\t\t立方米\r\n'
+                    '\t\t\t\t\t\t\t\t\t\t\t\r\n'
+                    '\t\t\t\t\t\t\t\t\t\t\r\n'
+                    '\t\t\t\t\t\t\t\t\t\t\r\n'
+                    '\t\t\t\t\t\t\t\t\t\t\t合计（单位：元）:\xa03536400.00\r\n'
+                    '\t\t\t\t\t\t\t\t\t\t\r\n'
+                    '\t\t\t\t\t\t\t\t\t\r\n'
+                    '\t\t\t\t\t\t\t\t\r\n'
+                    '\t\t\t\t\t\t\t\t\r\n'
+                    '\t\t\t\t\t\t\t\t六、投标与开标注意事项： \r\n'
+                    '\t\t\t\t\t\t\t\t\r\n'
+                    '\t\t\t\t\t\t\t\t\t本项目实行网上投标，采用电子投标文件。 \r\n'
+                    '\t\t\t\t\t\t\t\t\t标书获得方法 \r\n'
+                    '\t\t\t\t\t\t\t\t\t\xa0\xa0\xa0\xa0\xa0\xa0\xa0 '
+                    '凡已注册的深圳市网上政府采购供应商，按照授予的操作权限，可于 2019年02月15日 '
+                    '18:00至2019年02月25日 14:30 '
+                    '时期间登录深圳市龙华区公共资源交易中心网站（http://lhxq.szzfcg.cn）下载本项目的招标文件。投标人如确定参加投标，首先要在深圳市龙华区公共资源交易中心网站报名投标，方法为登录深圳市龙华区公共资源交易中心网站后点击“应标管理→投标响应”或“应标管理→确认邀请”；如果网上报名后又不参加投标，应再点击“拒绝”或“撤销”；如果是未注册为深圳政府采购的供应商，请访问深圳政府采购网站,先办理注册手续并缴纳投标保证金，再进行投标报名。在网上报名后，点击“应标管理→下载招标文件”进行招标文件的下载。 \r\n'
+                    '\t\t\t\t\t\t\t\t\t答疑事项 \r\n'
+                    '\t\t\t\t\t\t\t\t\t\xa0\xa0\xa0\xa0\xa0\xa0\xa0 '
+                    '2019年02月21日 '
+                    '14:30时前凡对招标文件有任何疑问的（包括认为招标文件的技术指标或参数存在倾向性或不公正性条款），登录“深圳市龙华区公共资源交易中心网站”，在“应标管理→投标答疑”中填写疑问，逾期不予受理。 '
+                    '将答疑结果在“应标管理→投标答疑”中公布，望投标人予以关注。 \r\n'
+                    '\t\t\t\t\t\t\t\t\t投标截止时间 \r\n'
+                    '\t\t\t\t\t\t\t\t\t\xa0\xa0\xa0\xa0\xa0\xa0\xa0 '
+                    '所有投标文件应于2019年02月26日 '
+                    '14:30时之前上传到深圳市龙华区公共资源交易中心网站。具体操作为登录“深圳市龙华区公共资源交易中心网站”，用“应标管理→上传投标文件”功能点上传投标文件。本项目电子投标文件最大容量为100MB，超过此容量的文件将被拒绝。 \r\n'
+                    '\t\t\t\t\t\t\t\t\t开标时间和地点 \r\n'
+                    '\t\t\t\t\t\t\t\t\t\xa0\xa0\xa0\xa0\xa0\xa0\xa0 '
+                    '定于2019年02月26日 '
+                    '14:30时，在深圳市龙华区公共资源交易中心公开开标。供应商可以登录“深圳市龙华区公共资源交易中心网站”，用“采购项目查询及管理→查看开标一览表”功能点查询开标情况。 \r\n'
+                    '\t\t\t\t\t\t\t\t\r\n'
+                    '\t\t\t\t\t\t\t\t七、重要提示：\r\n'
+                    '\t\t\t\t\t\t\t\t\r\n'
+                    '\t\t\t\t\t\t\t\t\t'
+                    '深圳市龙华区公共资源交易中心有权对中标供应商就本项目资格条款要求提供的相关证明资料（原件）进行审查。供应商提供虚假资料被查实的，则可能面临被取消本项目中标资格、列入不良行为记录名单、投标保证金不予退还和三年内禁止参与深圳市政府采购活动的风险。 \r\n'
+                    '\t\t\t\t\t\t\t\t\t'
+                    '本项目的招标文件规定了投标文件目录结构，各投标人应按目录结构要求编制投标文件，在投标文件目录中属于本节点内容的必须在本节点中填写，填写到其他节点或附件致难以查找的将可能导致废标，一切后果由供应商自行承担。 \r\n'
+                    '\t\t\t\t\t\t\t\t\t'
+                    '本招标公告及本项目招标文件所涉及的时间一律为北京时间。投标人有义务在招标活动期间浏览深圳市龙华区公共资源交易中心网站（http://lhxq.szzfcg.cn），在深圳市龙华区公共资源交易中心网上公布的与本次招标项目有关的信息视为已送达各投标人。 \r\n'
+                    '\t\t\t\t\t\t\t\t\t交纳投标保证金： \r\n'
+                    '\t\t\t\t\t\t\t\t\t（1）所有项目必须交纳投标保证金； \r\n'
+                    '\t\t\t\t\t\t\t\t\t'
+                    '（2）投标保证金的金额：人民币10000元（大写：壹万元），招标文件对投标保证金金额另有规定的，按招标文件规定交纳； \r\n'
+                    '\t\t\t\t\t\t\t\t\t（3）交纳时间：开标日前两个工作日，以银行到账为准。 \r\n'
+                    '\t\t\t\t\t\t\t\t\t'
+                    '（4）交纳方式：投标保证金必须是从投标人单位的基本账户以银行转账或网银转账的方式单笔、准确、足额转入投标保证金指定账号中。不接受以现金或单位结算卡等方式提交投标保证金。 \r\n'
+                    '\t\t\t\t\t\t\t\t\t\xa0\xa0\xa0\xa0\xa0\xa0\xa0\xa0\xa0'
+                    '开户名称：深圳市政府采购中心 \r\n'
+                    '\t\t\t\t\t\t\t\t\t\xa0\xa0\xa0\xa0\xa0\xa0\xa0\xa0\xa0'
+                    '开户银行：平安银行股份有限公司深圳分行营业部 \r\n'
+                    '\t\t\t\t\t\t\t\t\t\xa0\xa0\xa0\xa0\xa0\xa0\xa0\xa0\xa0'
+                    '银行账户：0012 1002 0054 9 \r\n'
+                    '\t\t\t\t\t\t\t\t\t\xa0\xa0\xa0\xa0\xa0\xa0\xa0\xa0\xa0'
+                    '行\u3000\u3000号：307584021015 \r\n'
+                    '\t\t\t\t\t\t\t\t\t（5）退还方式：依申请退还。 \r\n'
+                    '\t\t\t\t\t\t\t\t\t\xa0\xa0\xa0\xa0\xa0\xa0\xa0\xa0\xa0'
+                    '投标结束后，供应商可登陆“深圳政府采购网”(http://www.cgzx.sz.gov.cn/)，点击“供应商保证金业务办理”栏目，了解投标保证金退还相关规定，并依规办理退还手续。若未申请退还，可继续参加投标，招标文件另有要求的除外。 \r\n'
+                    '\t\t\t\t\t\t\t\t\t（6）保证金咨询电话：0755-83948155。 \r\n'
+                    '\t\t\t\t\t\t\t\t\r\n'
+                    '\t\t\t\t\t\t\t\t八、联系方式\r\n'
+                    '\t\t\t\t\t\t\t\t\r\n'
+                    '\t\t\t\t\t\t\t\t\t招标组织机构\r\n'
+                    '\t\t\t\t\t\t\t\t\t单位名称：深圳市龙华区公共资源交易中心\r\n'
+                    '\t\t\t\t\t\t\t\t\t详细地址：深圳市龙华区国鸿大厦7栋A座11楼\r\n'
+                    '\t\t\t\t\t\t\t\t\t项目经办人：郭工\r\n'
+                    '\t\t\t\t\t\t\t\t\t联系电话：23338582\r\n'
+                    '\t\t\t\t\t\t\t\t\t传真电话：0755-23338438\r\n'
+                    '\t\t\t\t\t\t\t\t\t'
+                    '网上操作咨询：23338402，23338582（若下载招标文件有困难，请与我们联系）\r\n'
+                    '\t\t\t\t\t\t\t\t\t注册咨询：83938966 \r\n'
+                    '\t\t\t\t\t\t\t\t\t电子密钥咨询：83948165或 4008301330\r\n'
+                    '\t\t\t\t\t\t\t\t\t\r\n'
+                    '\t\t\t\t\t\t\t\t\t采购单位 \r\n'
+                    '\t\t\t\t\t\t\t\t\t单位名称：深圳市龙华市政管理有限公司 \r\n'
+                    '\t\t\t\t\t\t\t\t\t项目联系人：陈湛韬 \r\n'
+                    '\t\t\t\t\t\t\t\t\t联系方式：13670050851 \r\n'
+                    '\t\t\t\t\t\t\t\t\t\r\n'
+                    '\t\t\t\t\t\t\t\t\r\n'
+                    '\t\t\t\t\t\t\t\t\r\n'
+                    '\t\t\t\t\t\t\t\t九、招标文件：\r\n'
+                    '\t\t\t\t\t\t\t\t\xa0\xa0\xa0\xa0\xa0\xa0\xa0\xa0\xa0 '
+                    '-点此下载- \r\n'
+                    '\t\t\t\t\t\t\t\t\r\n'
+                    '\t\t\t\t\t\t\t\t\r\n'
+                    '\t\t\t\t\t\t\t\t\r\n'
+                    '\t\t\t\t\t\t\t\t深圳市龙华区公共资源交易中心\xa0\r\n'
+                    '\t\t\t\t\t\t\t\t2019年02月15日 \r\n'
+                    '\t\t\t\t\t\t\t\t\r\n'
+                    '\t\t\t\t\t\t\t\t',
+ 'bidding_end_time': '开标时间和地点 \r\n'
+                     '\t\t\t\t\t\t\t\t\t\xa0\xa0\xa0\xa0\xa0\xa0\xa0 '
+                     '定于2019年02月26日 '
+                     '14:30时，在深圳市龙华区公共资源交易中心公开开标。供应商可以登录“深圳市龙华区公共资源交易中心网站”，用“采购项目查询及管理→查看开标一览表”功能点查询开标情况。 ',
+ 'bidding_name': '龙华市政公司2018-2019年度余泥渣土清运服务项目第三次招标',
+ 'bidding_open_time': '投标截止时间 \r\n'
+                      '\t\t\t\t\t\t\t\t\t\xa0\xa0\xa0\xa0\xa0\xa0\xa0 '
+                      '所有投标文件应于2019年02月26日 '
+                      '14:30时之前上传到深圳市龙华区公共资源交易中心网站。具体操作为登录“深圳市龙华区公共资源交易中心网站”，用“应标管理→上传投标文件”功能点上传投标文件。本项目电子投标文件最大容量为100MB，超过此容量的文件将被拒绝。 ',
+ 'bidding_tenderee': '采购单位 \r\n'
+                     '\t\t\t\t\t\t\t\t\t单位名称：深圳市龙华市政管理有限公司 \r\n'
+                     '\t\t\t\t\t\t\t\t\t项目联系人：陈湛韬 \r\n'
+                     '\t\t\t\t\t\t\t\t\t联系方式：13670050851 \r\n'
+                     '\t\t\t\t\t\t\t\t\t',
+ 'bidding_url': 'http://www.szzfcg.cn/stock/fileDown.do?method=downLoadByStprId&stprId=280888265',
+ 'ip': '',
+ 'publish_time': '',
+ 'website_name': '深圳市龙华区公共资源交易中心'}
+2019-02-15 22:05:18 [szzfcg_longhua_project.pipelines] WARNING: {'bidding_agency': '',
+ 'bidding_block': '本项目实行网上投标，采用电子投标文件。 ',
+ 'bidding_content': '\r\n'
+                    '\t\t\t\t\t\t\t\t深圳市龙华区公共资源交易中心\r\n'
+                    '\t\t\t\t\t\t\t\t公开招标公告 \r\n'
+                    '\t\t\t\t\t\t\t\t\r\n'
+                    '\t\t\t\t\t\t\t\t\xa0\xa0\xa0\xa0\xa0\xa0\xa0\xa0\xa0 '
+                    '根据《深圳经济特区政府采购条例》、《深圳经济特区政府采购条例实施细则》和《深圳网上政府采购管理暂行办法》的有关规定，深圳市龙华区公共资源交易中心就龙华市政公司2018-2019年度余泥渣土清运服务项目第三次招标项目，采用公开招标的方式实施采购，欢迎符合资格的供应商参加投标。 \r\n'
+                    '\t\t\t\t\t\t\t\t一、项目编号：LHQCG2019017182\r\n'
+                    '\t\t\t\t\t\t\t\t'
+                    '二、项目名称：龙华市政公司2018-2019年度余泥渣土清运服务项目第三次招标\r\n'
+                    '\t\t\t\t\t\t\t\t三、项目概况：详见招标文件\r\n'
+                    '\t\t\t\t\t\t\t\t\xa0\xa0\xa0\xa0\r\n'
+                    '\t\t\t\t\t\t\t\t四、投标人资格要求：\r\n'
+                    '\t\t\t\t\t\t\t\t'
+                    '1.在中国境内注册的独立法人或非法人组织（独立法人提供营业执照扫描件/非法人组织则提供相应证照扫描件）；\r\n'
+                    '\t\t\t\t\t\t\t\t'
+                    '2.投标人需提供通过“信用中国”网（www.creditchina.gov.cn）信用信息查询记录网络截图，如在截图中存在“限制或禁止参与政府采购活动”的处罚，则从其处罚的时段及范围要求，非企业则无需提供（模板详见 '
+                    '招标文件相应章节）\r\n'
+                    '\t\t\t\t\t\t\t\t3.投标人必须按照招标文件所提供的《政府采购投标及履约承诺函》进行承诺（详见 '
+                    '招标文件相应章节）\r\n'
+                    '\t\t\t\t\t\t\t\t'
+                    '4.近三年内（投标人成立不足三年的可从成立之日起算）在经营活动中没有重大违法经营记录和投标时不存在处于被禁止参与政府采购活动期限内情形的书面声明函（详见招标文件相应章节）\r\n'
+                    '\t\t\t\t\t\t\t\t5.本项目不接受联合体投标，不允许分包、转包；\r\n'
+                    '\t\t\t\t\t\t\t\t\r\n'
+                    '\t\t\t\t\t\t\t\t五、采购预算：3536400.00\r\n'
+                    '\t\t\t\t\t\t\t\t\r\n'
+                    '\t\t\t\t\t\t\t\t\r\n'
+                    '\t\t\t\t\t\t\t\t\t\r\n'
+                    '\t\t\t\t\t\t\t\t\t\t\r\n'
+                    '\t\t\t\t\t\t\t\t\t\t\t\r\n'
+                    '\t\t\t\t\t\t\t\t\t\t\t采购条目流水号\r\n'
+                    '\t\t\t\t\t\t\t\t\t\t\t\r\n'
+                    '\t\t\t\t\t\t\t\t\t\t\t\r\n'
+                    '\t\t\t\t\t\t\t\t\t\t\t采购品名\r\n'
+                    '\t\t\t\t\t\t\t\t\t\t\t\r\n'
+                    '\t\t\t\t\t\t\t\t\t\t\t\r\n'
+                    '\t\t\t\t\t\t\t\t\t\t\t预算金额（单位：元）\r\n'
+                    '\t\t\t\t\t\t\t\t\t\t\t\r\n'
+                    '\t\t\t\t\t\t\t\t\t\t\t\r\n'
+                    '\t\t\t\t\t\t\t\t\t\t\t数量\r\n'
+                    '\t\t\t\t\t\t\t\t\t\t\t\r\n'
+                    '\t\t\t\t\t\t\t\t\t\t\t\r\n'
+                    '\t\t\t\t\t\t\t\t\t\t\t单位\r\n'
+                    '\t\t\t\t\t\t\t\t\t\t\t\r\n'
+                    '\t\t\t\t\t\t\t\t\t\t\r\n'
+                    '\t\t\t\t\t\t\t\t\t\t\r\n'
+                    '\t\t\t\t\t\t\t\t\t\t\t\r\n'
+                    '\t\t\t\t\t\t\t\t\t\t\t224592799\r\n'
+                    '\t\t\t\t\t\t\t\t\t\t\t\r\n'
+                    '\t\t\t\t\t\t\t\t\t\t\t\r\n'
+                    '\t\t\t\t\t\t\t\t\t\t\t龙华市政公司2018-2019年度余泥渣土清运服务项目\r\n'
+                    '\t\t\t\t\t\t\t\t\t\t\t\r\n'
+                    '\t\t\t\t\t\t\t\t\t\t\t\r\n'
+                    '\t\t\t\t\t\t\t\t\t\t\t3536400.00\r\n'
+                    '\t\t\t\t\t\t\t\t\t\t\t\r\n'
+                    '\t\t\t\t\t\t\t\t\t\t\t\r\n'
+                    '\t\t\t\t\t\t\t\t\t\t\t15000.0\r\n'
+                    '\t\t\t\t\t\t\t\t\t\t\t\r\n'
+                    '\t\t\t\t\t\t\t\t\t\t\t\r\n'
+                    '\t\t\t\t\t\t\t\t\t\t\t立方米\r\n'
+                    '\t\t\t\t\t\t\t\t\t\t\t\r\n'
+                    '\t\t\t\t\t\t\t\t\t\t\r\n'
+                    '\t\t\t\t\t\t\t\t\t\t\r\n'
+                    '\t\t\t\t\t\t\t\t\t\t\t合计（单位：元）:\xa03536400.00\r\n'
+                    '\t\t\t\t\t\t\t\t\t\t\r\n'
+                    '\t\t\t\t\t\t\t\t\t\r\n'
+                    '\t\t\t\t\t\t\t\t\r\n'
+                    '\t\t\t\t\t\t\t\t\r\n'
+                    '\t\t\t\t\t\t\t\t六、投标与开标注意事项： \r\n'
+                    '\t\t\t\t\t\t\t\t\r\n'
+                    '\t\t\t\t\t\t\t\t\t本项目实行网上投标，采用电子投标文件。 \r\n'
+                    '\t\t\t\t\t\t\t\t\t标书获得方法 \r\n'
+                    '\t\t\t\t\t\t\t\t\t\xa0\xa0\xa0\xa0\xa0\xa0\xa0 '
+                    '凡已注册的深圳市网上政府采购供应商，按照授予的操作权限，可于 2019年02月15日 '
+                    '18:00至2019年02月25日 14:30 '
+                    '时期间登录深圳市龙华区公共资源交易中心网站（http://lhxq.szzfcg.cn）下载本项目的招标文件。投标人如确定参加投标，首先要在深圳市龙华区公共资源交易中心网站报名投标，方法为登录深圳市龙华区公共资源交易中心网站后点击“应标管理→投标响应”或“应标管理→确认邀请”；如果网上报名后又不参加投标，应再点击“拒绝”或“撤销”；如果是未注册为深圳政府采购的供应商，请访问深圳政府采购网站,先办理注册手续并缴纳投标保证金，再进行投标报名。在网上报名后，点击“应标管理→下载招标文件”进行招标文件的下载。 \r\n'
+                    '\t\t\t\t\t\t\t\t\t答疑事项 \r\n'
+                    '\t\t\t\t\t\t\t\t\t\xa0\xa0\xa0\xa0\xa0\xa0\xa0 '
+                    '2019年02月21日 '
+                    '14:30时前凡对招标文件有任何疑问的（包括认为招标文件的技术指标或参数存在倾向性或不公正性条款），登录“深圳市龙华区公共资源交易中心网站”，在“应标管理→投标答疑”中填写疑问，逾期不予受理。 '
+                    '将答疑结果在“应标管理→投标答疑”中公布，望投标人予以关注。 \r\n'
+                    '\t\t\t\t\t\t\t\t\t投标截止时间 \r\n'
+                    '\t\t\t\t\t\t\t\t\t\xa0\xa0\xa0\xa0\xa0\xa0\xa0 '
+                    '所有投标文件应于2019年02月26日 '
+                    '14:30时之前上传到深圳市龙华区公共资源交易中心网站。具体操作为登录“深圳市龙华区公共资源交易中心网站”，用“应标管理→上传投标文件”功能点上传投标文件。本项目电子投标文件最大容量为100MB，超过此容量的文件将被拒绝。 \r\n'
+                    '\t\t\t\t\t\t\t\t\t开标时间和地点 \r\n'
+                    '\t\t\t\t\t\t\t\t\t\xa0\xa0\xa0\xa0\xa0\xa0\xa0 '
+                    '定于2019年02月26日 '
+                    '14:30时，在深圳市龙华区公共资源交易中心公开开标。供应商可以登录“深圳市龙华区公共资源交易中心网站”，用“采购项目查询及管理→查看开标一览表”功能点查询开标情况。 \r\n'
+                    '\t\t\t\t\t\t\t\t\r\n'
+                    '\t\t\t\t\t\t\t\t七、重要提示：\r\n'
+                    '\t\t\t\t\t\t\t\t\r\n'
+                    '\t\t\t\t\t\t\t\t\t'
+                    '深圳市龙华区公共资源交易中心有权对中标供应商就本项目资格条款要求提供的相关证明资料（原件）进行审查。供应商提供虚假资料被查实的，则可能面临被取消本项目中标资格、列入不良行为记录名单、投标保证金不予退还和三年内禁止参与深圳市政府采购活动的风险。 \r\n'
+                    '\t\t\t\t\t\t\t\t\t'
+                    '本项目的招标文件规定了投标文件目录结构，各投标人应按目录结构要求编制投标文件，在投标文件目录中属于本节点内容的必须在本节点中填写，填写到其他节点或附件致难以查找的将可能导致废标，一切后果由供应商自行承担。 \r\n'
+                    '\t\t\t\t\t\t\t\t\t'
+                    '本招标公告及本项目招标文件所涉及的时间一律为北京时间。投标人有义务在招标活动期间浏览深圳市龙华区公共资源交易中心网站（http://lhxq.szzfcg.cn），在深圳市龙华区公共资源交易中心网上公布的与本次招标项目有关的信息视为已送达各投标人。 \r\n'
+                    '\t\t\t\t\t\t\t\t\t交纳投标保证金： \r\n'
+                    '\t\t\t\t\t\t\t\t\t（1）所有项目必须交纳投标保证金； \r\n'
+                    '\t\t\t\t\t\t\t\t\t'
+                    '（2）投标保证金的金额：人民币10000元（大写：壹万元），招标文件对投标保证金金额另有规定的，按招标文件规定交纳； \r\n'
+                    '\t\t\t\t\t\t\t\t\t（3）交纳时间：开标日前两个工作日，以银行到账为准。 \r\n'
+                    '\t\t\t\t\t\t\t\t\t'
+                    '（4）交纳方式：投标保证金必须是从投标人单位的基本账户以银行转账或网银转账的方式单笔、准确、足额转入投标保证金指定账号中。不接受以现金或单位结算卡等方式提交投标保证金。 \r\n'
+                    '\t\t\t\t\t\t\t\t\t\xa0\xa0\xa0\xa0\xa0\xa0\xa0\xa0\xa0'
+                    '开户名称：深圳市政府采购中心 \r\n'
+                    '\t\t\t\t\t\t\t\t\t\xa0\xa0\xa0\xa0\xa0\xa0\xa0\xa0\xa0'
+                    '开户银行：平安银行股份有限公司深圳分行营业部 \r\n'
+                    '\t\t\t\t\t\t\t\t\t\xa0\xa0\xa0\xa0\xa0\xa0\xa0\xa0\xa0'
+                    '银行账户：0012 1002 0054 9 \r\n'
+                    '\t\t\t\t\t\t\t\t\t\xa0\xa0\xa0\xa0\xa0\xa0\xa0\xa0\xa0'
+                    '行\u3000\u3000号：307584021015 \r\n'
+                    '\t\t\t\t\t\t\t\t\t（5）退还方式：依申请退还。 \r\n'
+                    '\t\t\t\t\t\t\t\t\t\xa0\xa0\xa0\xa0\xa0\xa0\xa0\xa0\xa0'
+                    '投标结束后，供应商可登陆“深圳政府采购网”(http://www.cgzx.sz.gov.cn/)，点击“供应商保证金业务办理”栏目，了解投标保证金退还相关规定，并依规办理退还手续。若未申请退还，可继续参加投标，招标文件另有要求的除外。 \r\n'
+                    '\t\t\t\t\t\t\t\t\t（6）保证金咨询电话：0755-83948155。 \r\n'
+                    '\t\t\t\t\t\t\t\t\r\n'
+                    '\t\t\t\t\t\t\t\t八、联系方式\r\n'
+                    '\t\t\t\t\t\t\t\t\r\n'
+                    '\t\t\t\t\t\t\t\t\t招标组织机构\r\n'
+                    '\t\t\t\t\t\t\t\t\t单位名称：深圳市龙华区公共资源交易中心\r\n'
+                    '\t\t\t\t\t\t\t\t\t详细地址：深圳市龙华区国鸿大厦7栋A座11楼\r\n'
+                    '\t\t\t\t\t\t\t\t\t项目经办人：郭工\r\n'
+                    '\t\t\t\t\t\t\t\t\t联系电话：23338582\r\n'
+                    '\t\t\t\t\t\t\t\t\t传真电话：0755-23338438\r\n'
+                    '\t\t\t\t\t\t\t\t\t'
+                    '网上操作咨询：23338402，23338582（若下载招标文件有困难，请与我们联系）\r\n'
+                    '\t\t\t\t\t\t\t\t\t注册咨询：83938966 \r\n'
+                    '\t\t\t\t\t\t\t\t\t电子密钥咨询：83948165或 4008301330\r\n'
+                    '\t\t\t\t\t\t\t\t\t\r\n'
+                    '\t\t\t\t\t\t\t\t\t采购单位 \r\n'
+                    '\t\t\t\t\t\t\t\t\t单位名称：深圳市龙华市政管理有限公司 \r\n'
+                    '\t\t\t\t\t\t\t\t\t项目联系人：陈湛韬 \r\n'
+                    '\t\t\t\t\t\t\t\t\t联系方式：13670050851 \r\n'
+                    '\t\t\t\t\t\t\t\t\t\r\n'
+                    '\t\t\t\t\t\t\t\t\r\n'
+                    '\t\t\t\t\t\t\t\t\r\n'
+                    '\t\t\t\t\t\t\t\t九、招标文件：\r\n'
+                    '\t\t\t\t\t\t\t\t\xa0\xa0\xa0\xa0\xa0\xa0\xa0\xa0\xa0 '
+                    '-点此下载- \r\n'
+                    '\t\t\t\t\t\t\t\t\r\n'
+                    '\t\t\t\t\t\t\t\t\r\n'
+                    '\t\t\t\t\t\t\t\t\r\n'
+                    '\t\t\t\t\t\t\t\t深圳市龙华区公共资源交易中心\xa0\r\n'
+                    '\t\t\t\t\t\t\t\t2019年02月15日 \r\n'
+                    '\t\t\t\t\t\t\t\t\r\n'
+                    '\t\t\t\t\t\t\t\t',
+ 'bidding_end_time': '开标时间和地点 \r\n'
+                     '\t\t\t\t\t\t\t\t\t\xa0\xa0\xa0\xa0\xa0\xa0\xa0 '
+                     '定于2019年02月26日 '
+                     '14:30时，在深圳市龙华区公共资源交易中心公开开标。供应商可以登录“深圳市龙华区公共资源交易中心网站”，用“采购项目查询及管理→查看开标一览表”功能点查询开标情况。 ',
+ 'bidding_name': '龙华市政公司2018-2019年度余泥渣土清运服务项目第三次招标',
+ 'bidding_open_time': '投标截止时间 \r\n'
+                      '\t\t\t\t\t\t\t\t\t\xa0\xa0\xa0\xa0\xa0\xa0\xa0 '
+                      '所有投标文件应于2019年02月26日 '
+                      '14:30时之前上传到深圳市龙华区公共资源交易中心网站。具体操作为登录“深圳市龙华区公共资源交易中心网站”，用“应标管理→上传投标文件”功能点上传投标文件。本项目电子投标文件最大容量为100MB，超过此容量的文件将被拒绝。 ',
+ 'bidding_tenderee': '采购单位 \r\n'
+                     '\t\t\t\t\t\t\t\t\t单位名称：深圳市龙华市政管理有限公司 \r\n'
+                     '\t\t\t\t\t\t\t\t\t项目联系人：陈湛韬 \r\n'
+                     '\t\t\t\t\t\t\t\t\t联系方式：13670050851 \r\n'
+                     '\t\t\t\t\t\t\t\t\t',
+ 'bidding_url': 'http://www.szzfcg.cn/stock/fileDown.do?method=downLoadByStprId&stprId=280888265',
+ 'ip': '',
+ 'publish_time': '',
+ 'website_name': '深圳市龙华区公共资源交易中心'}
+2019-02-15 22:06:04 [szzfcg_longhua_project.pipelines] WARNING: {'bidding_agency': '',
+ 'bidding_block': '本项目实行网上投标，采用电子投标文件。 ',
+ 'bidding_content': '\r\n'
+                    '\t\t\t\t\t\t\t\t深圳市龙华区公共资源交易中心\r\n'
+                    '\t\t\t\t\t\t\t\t公开招标公告 \r\n'
+                    '\t\t\t\t\t\t\t\t\r\n'
+                    '\t\t\t\t\t\t\t\t\xa0\xa0\xa0\xa0\xa0\xa0\xa0\xa0\xa0 '
+                    '根据《深圳经济特区政府采购条例》、《深圳经济特区政府采购条例实施细则》和《深圳网上政府采购管理暂行办法》的有关规定，深圳市龙华区公共资源交易中心就龙华市政公司2018-2019年度余泥渣土清运服务项目第三次招标项目，采用公开招标的方式实施采购，欢迎符合资格的供应商参加投标。 \r\n'
+                    '\t\t\t\t\t\t\t\t一、项目编号：LHQCG2019017182\r\n'
+                    '\t\t\t\t\t\t\t\t'
+                    '二、项目名称：龙华市政公司2018-2019年度余泥渣土清运服务项目第三次招标\r\n'
+                    '\t\t\t\t\t\t\t\t三、项目概况：详见招标文件\r\n'
+                    '\t\t\t\t\t\t\t\t\xa0\xa0\xa0\xa0\r\n'
+                    '\t\t\t\t\t\t\t\t四、投标人资格要求：\r\n'
+                    '\t\t\t\t\t\t\t\t'
+                    '1.在中国境内注册的独立法人或非法人组织（独立法人提供营业执照扫描件/非法人组织则提供相应证照扫描件）；\r\n'
+                    '\t\t\t\t\t\t\t\t'
+                    '2.投标人需提供通过“信用中国”网（www.creditchina.gov.cn）信用信息查询记录网络截图，如在截图中存在“限制或禁止参与政府采购活动”的处罚，则从其处罚的时段及范围要求，非企业则无需提供（模板详见 '
+                    '招标文件相应章节）\r\n'
+                    '\t\t\t\t\t\t\t\t3.投标人必须按照招标文件所提供的《政府采购投标及履约承诺函》进行承诺（详见 '
+                    '招标文件相应章节）\r\n'
+                    '\t\t\t\t\t\t\t\t'
+                    '4.近三年内（投标人成立不足三年的可从成立之日起算）在经营活动中没有重大违法经营记录和投标时不存在处于被禁止参与政府采购活动期限内情形的书面声明函（详见招标文件相应章节）\r\n'
+                    '\t\t\t\t\t\t\t\t5.本项目不接受联合体投标，不允许分包、转包；\r\n'
+                    '\t\t\t\t\t\t\t\t\r\n'
+                    '\t\t\t\t\t\t\t\t五、采购预算：3536400.00\r\n'
+                    '\t\t\t\t\t\t\t\t\r\n'
+                    '\t\t\t\t\t\t\t\t\r\n'
+                    '\t\t\t\t\t\t\t\t\t\r\n'
+                    '\t\t\t\t\t\t\t\t\t\t\r\n'
+                    '\t\t\t\t\t\t\t\t\t\t\t\r\n'
+                    '\t\t\t\t\t\t\t\t\t\t\t采购条目流水号\r\n'
+                    '\t\t\t\t\t\t\t\t\t\t\t\r\n'
+                    '\t\t\t\t\t\t\t\t\t\t\t\r\n'
+                    '\t\t\t\t\t\t\t\t\t\t\t采购品名\r\n'
+                    '\t\t\t\t\t\t\t\t\t\t\t\r\n'
+                    '\t\t\t\t\t\t\t\t\t\t\t\r\n'
+                    '\t\t\t\t\t\t\t\t\t\t\t预算金额（单位：元）\r\n'
+                    '\t\t\t\t\t\t\t\t\t\t\t\r\n'
+                    '\t\t\t\t\t\t\t\t\t\t\t\r\n'
+                    '\t\t\t\t\t\t\t\t\t\t\t数量\r\n'
+                    '\t\t\t\t\t\t\t\t\t\t\t\r\n'
+                    '\t\t\t\t\t\t\t\t\t\t\t\r\n'
+                    '\t\t\t\t\t\t\t\t\t\t\t单位\r\n'
+                    '\t\t\t\t\t\t\t\t\t\t\t\r\n'
+                    '\t\t\t\t\t\t\t\t\t\t\r\n'
+                    '\t\t\t\t\t\t\t\t\t\t\r\n'
+                    '\t\t\t\t\t\t\t\t\t\t\t\r\n'
+                    '\t\t\t\t\t\t\t\t\t\t\t224592799\r\n'
+                    '\t\t\t\t\t\t\t\t\t\t\t\r\n'
+                    '\t\t\t\t\t\t\t\t\t\t\t\r\n'
+                    '\t\t\t\t\t\t\t\t\t\t\t龙华市政公司2018-2019年度余泥渣土清运服务项目\r\n'
+                    '\t\t\t\t\t\t\t\t\t\t\t\r\n'
+                    '\t\t\t\t\t\t\t\t\t\t\t\r\n'
+                    '\t\t\t\t\t\t\t\t\t\t\t3536400.00\r\n'
+                    '\t\t\t\t\t\t\t\t\t\t\t\r\n'
+                    '\t\t\t\t\t\t\t\t\t\t\t\r\n'
+                    '\t\t\t\t\t\t\t\t\t\t\t15000.0\r\n'
+                    '\t\t\t\t\t\t\t\t\t\t\t\r\n'
+                    '\t\t\t\t\t\t\t\t\t\t\t\r\n'
+                    '\t\t\t\t\t\t\t\t\t\t\t立方米\r\n'
+                    '\t\t\t\t\t\t\t\t\t\t\t\r\n'
+                    '\t\t\t\t\t\t\t\t\t\t\r\n'
+                    '\t\t\t\t\t\t\t\t\t\t\r\n'
+                    '\t\t\t\t\t\t\t\t\t\t\t合计（单位：元）:\xa03536400.00\r\n'
+                    '\t\t\t\t\t\t\t\t\t\t\r\n'
+                    '\t\t\t\t\t\t\t\t\t\r\n'
+                    '\t\t\t\t\t\t\t\t\r\n'
+                    '\t\t\t\t\t\t\t\t\r\n'
+                    '\t\t\t\t\t\t\t\t六、投标与开标注意事项： \r\n'
+                    '\t\t\t\t\t\t\t\t\r\n'
+                    '\t\t\t\t\t\t\t\t\t本项目实行网上投标，采用电子投标文件。 \r\n'
+                    '\t\t\t\t\t\t\t\t\t标书获得方法 \r\n'
+                    '\t\t\t\t\t\t\t\t\t\xa0\xa0\xa0\xa0\xa0\xa0\xa0 '
+                    '凡已注册的深圳市网上政府采购供应商，按照授予的操作权限，可于 2019年02月15日 '
+                    '18:00至2019年02月25日 14:30 '
+                    '时期间登录深圳市龙华区公共资源交易中心网站（http://lhxq.szzfcg.cn）下载本项目的招标文件。投标人如确定参加投标，首先要在深圳市龙华区公共资源交易中心网站报名投标，方法为登录深圳市龙华区公共资源交易中心网站后点击“应标管理→投标响应”或“应标管理→确认邀请”；如果网上报名后又不参加投标，应再点击“拒绝”或“撤销”；如果是未注册为深圳政府采购的供应商，请访问深圳政府采购网站,先办理注册手续并缴纳投标保证金，再进行投标报名。在网上报名后，点击“应标管理→下载招标文件”进行招标文件的下载。 \r\n'
+                    '\t\t\t\t\t\t\t\t\t答疑事项 \r\n'
+                    '\t\t\t\t\t\t\t\t\t\xa0\xa0\xa0\xa0\xa0\xa0\xa0 '
+                    '2019年02月21日 '
+                    '14:30时前凡对招标文件有任何疑问的（包括认为招标文件的技术指标或参数存在倾向性或不公正性条款），登录“深圳市龙华区公共资源交易中心网站”，在“应标管理→投标答疑”中填写疑问，逾期不予受理。 '
+                    '将答疑结果在“应标管理→投标答疑”中公布，望投标人予以关注。 \r\n'
+                    '\t\t\t\t\t\t\t\t\t投标截止时间 \r\n'
+                    '\t\t\t\t\t\t\t\t\t\xa0\xa0\xa0\xa0\xa0\xa0\xa0 '
+                    '所有投标文件应于2019年02月26日 '
+                    '14:30时之前上传到深圳市龙华区公共资源交易中心网站。具体操作为登录“深圳市龙华区公共资源交易中心网站”，用“应标管理→上传投标文件”功能点上传投标文件。本项目电子投标文件最大容量为100MB，超过此容量的文件将被拒绝。 \r\n'
+                    '\t\t\t\t\t\t\t\t\t开标时间和地点 \r\n'
+                    '\t\t\t\t\t\t\t\t\t\xa0\xa0\xa0\xa0\xa0\xa0\xa0 '
+                    '定于2019年02月26日 '
+                    '14:30时，在深圳市龙华区公共资源交易中心公开开标。供应商可以登录“深圳市龙华区公共资源交易中心网站”，用“采购项目查询及管理→查看开标一览表”功能点查询开标情况。 \r\n'
+                    '\t\t\t\t\t\t\t\t\r\n'
+                    '\t\t\t\t\t\t\t\t七、重要提示：\r\n'
+                    '\t\t\t\t\t\t\t\t\r\n'
+                    '\t\t\t\t\t\t\t\t\t'
+                    '深圳市龙华区公共资源交易中心有权对中标供应商就本项目资格条款要求提供的相关证明资料（原件）进行审查。供应商提供虚假资料被查实的，则可能面临被取消本项目中标资格、列入不良行为记录名单、投标保证金不予退还和三年内禁止参与深圳市政府采购活动的风险。 \r\n'
+                    '\t\t\t\t\t\t\t\t\t'
+                    '本项目的招标文件规定了投标文件目录结构，各投标人应按目录结构要求编制投标文件，在投标文件目录中属于本节点内容的必须在本节点中填写，填写到其他节点或附件致难以查找的将可能导致废标，一切后果由供应商自行承担。 \r\n'
+                    '\t\t\t\t\t\t\t\t\t'
+                    '本招标公告及本项目招标文件所涉及的时间一律为北京时间。投标人有义务在招标活动期间浏览深圳市龙华区公共资源交易中心网站（http://lhxq.szzfcg.cn），在深圳市龙华区公共资源交易中心网上公布的与本次招标项目有关的信息视为已送达各投标人。 \r\n'
+                    '\t\t\t\t\t\t\t\t\t交纳投标保证金： \r\n'
+                    '\t\t\t\t\t\t\t\t\t（1）所有项目必须交纳投标保证金； \r\n'
+                    '\t\t\t\t\t\t\t\t\t'
+                    '（2）投标保证金的金额：人民币10000元（大写：壹万元），招标文件对投标保证金金额另有规定的，按招标文件规定交纳； \r\n'
+                    '\t\t\t\t\t\t\t\t\t（3）交纳时间：开标日前两个工作日，以银行到账为准。 \r\n'
+                    '\t\t\t\t\t\t\t\t\t'
+                    '（4）交纳方式：投标保证金必须是从投标人单位的基本账户以银行转账或网银转账的方式单笔、准确、足额转入投标保证金指定账号中。不接受以现金或单位结算卡等方式提交投标保证金。 \r\n'
+                    '\t\t\t\t\t\t\t\t\t\xa0\xa0\xa0\xa0\xa0\xa0\xa0\xa0\xa0'
+                    '开户名称：深圳市政府采购中心 \r\n'
+                    '\t\t\t\t\t\t\t\t\t\xa0\xa0\xa0\xa0\xa0\xa0\xa0\xa0\xa0'
+                    '开户银行：平安银行股份有限公司深圳分行营业部 \r\n'
+                    '\t\t\t\t\t\t\t\t\t\xa0\xa0\xa0\xa0\xa0\xa0\xa0\xa0\xa0'
+                    '银行账户：0012 1002 0054 9 \r\n'
+                    '\t\t\t\t\t\t\t\t\t\xa0\xa0\xa0\xa0\xa0\xa0\xa0\xa0\xa0'
+                    '行\u3000\u3000号：307584021015 \r\n'
+                    '\t\t\t\t\t\t\t\t\t（5）退还方式：依申请退还。 \r\n'
+                    '\t\t\t\t\t\t\t\t\t\xa0\xa0\xa0\xa0\xa0\xa0\xa0\xa0\xa0'
+                    '投标结束后，供应商可登陆“深圳政府采购网”(http://www.cgzx.sz.gov.cn/)，点击“供应商保证金业务办理”栏目，了解投标保证金退还相关规定，并依规办理退还手续。若未申请退还，可继续参加投标，招标文件另有要求的除外。 \r\n'
+                    '\t\t\t\t\t\t\t\t\t（6）保证金咨询电话：0755-83948155。 \r\n'
+                    '\t\t\t\t\t\t\t\t\r\n'
+                    '\t\t\t\t\t\t\t\t八、联系方式\r\n'
+                    '\t\t\t\t\t\t\t\t\r\n'
+                    '\t\t\t\t\t\t\t\t\t招标组织机构\r\n'
+                    '\t\t\t\t\t\t\t\t\t单位名称：深圳市龙华区公共资源交易中心\r\n'
+                    '\t\t\t\t\t\t\t\t\t详细地址：深圳市龙华区国鸿大厦7栋A座11楼\r\n'
+                    '\t\t\t\t\t\t\t\t\t项目经办人：郭工\r\n'
+                    '\t\t\t\t\t\t\t\t\t联系电话：23338582\r\n'
+                    '\t\t\t\t\t\t\t\t\t传真电话：0755-23338438\r\n'
+                    '\t\t\t\t\t\t\t\t\t'
+                    '网上操作咨询：23338402，23338582（若下载招标文件有困难，请与我们联系）\r\n'
+                    '\t\t\t\t\t\t\t\t\t注册咨询：83938966 \r\n'
+                    '\t\t\t\t\t\t\t\t\t电子密钥咨询：83948165或 4008301330\r\n'
+                    '\t\t\t\t\t\t\t\t\t\r\n'
+                    '\t\t\t\t\t\t\t\t\t采购单位 \r\n'
+                    '\t\t\t\t\t\t\t\t\t单位名称：深圳市龙华市政管理有限公司 \r\n'
+                    '\t\t\t\t\t\t\t\t\t项目联系人：陈湛韬 \r\n'
+                    '\t\t\t\t\t\t\t\t\t联系方式：13670050851 \r\n'
+                    '\t\t\t\t\t\t\t\t\t\r\n'
+                    '\t\t\t\t\t\t\t\t\r\n'
+                    '\t\t\t\t\t\t\t\t\r\n'
+                    '\t\t\t\t\t\t\t\t九、招标文件：\r\n'
+                    '\t\t\t\t\t\t\t\t\xa0\xa0\xa0\xa0\xa0\xa0\xa0\xa0\xa0 '
+                    '-点此下载- \r\n'
+                    '\t\t\t\t\t\t\t\t\r\n'
+                    '\t\t\t\t\t\t\t\t\r\n'
+                    '\t\t\t\t\t\t\t\t\r\n'
+                    '\t\t\t\t\t\t\t\t深圳市龙华区公共资源交易中心\xa0\r\n'
+                    '\t\t\t\t\t\t\t\t2019年02月15日 \r\n'
+                    '\t\t\t\t\t\t\t\t\r\n'
+                    '\t\t\t\t\t\t\t\t',
+ 'bidding_end_time': '开标时间和地点 \r\n'
+                     '\t\t\t\t\t\t\t\t\t\xa0\xa0\xa0\xa0\xa0\xa0\xa0 '
+                     '定于2019年02月26日 '
+                     '14:30时，在深圳市龙华区公共资源交易中心公开开标。供应商可以登录“深圳市龙华区公共资源交易中心网站”，用“采购项目查询及管理→查看开标一览表”功能点查询开标情况。 ',
+ 'bidding_name': '龙华市政公司2018-2019年度余泥渣土清运服务项目第三次招标',
+ 'bidding_open_time': '投标截止时间 \r\n'
+                      '\t\t\t\t\t\t\t\t\t\xa0\xa0\xa0\xa0\xa0\xa0\xa0 '
+                      '所有投标文件应于2019年02月26日 '
+                      '14:30时之前上传到深圳市龙华区公共资源交易中心网站。具体操作为登录“深圳市龙华区公共资源交易中心网站”，用“应标管理→上传投标文件”功能点上传投标文件。本项目电子投标文件最大容量为100MB，超过此容量的文件将被拒绝。 ',
+ 'bidding_tenderee': '采购单位 \r\n'
+                     '\t\t\t\t\t\t\t\t\t单位名称：深圳市龙华市政管理有限公司 \r\n'
+                     '\t\t\t\t\t\t\t\t\t项目联系人：陈湛韬 \r\n'
+                     '\t\t\t\t\t\t\t\t\t联系方式：13670050851 \r\n'
+                     '\t\t\t\t\t\t\t\t\t',
+ 'bidding_url': 'http://www.szzfcg.cn/stock/fileDown.do?method=downLoadByStprId&stprId=280888265',
+ 'ip': '',
+ 'publish_time': '',
+ 'website_name': '深圳市龙华区公共资源交易中心'}
