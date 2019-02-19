@@ -68,7 +68,7 @@ class SzzcfgLonghuaProjectSpider(scrapy.Spider):
         bidding_open_time = html_content.xpath("./ol")[0].xpath('./li').xpath('string(.)').extract()[-2]  # 开标时间
         bidding_end_time = html_content.xpath("./ol")[0].xpath('./li').xpath('string(.)').extract()[-1]  # 投标截止时间
         bidding_agency = ""  # 代理机构
-        item = SzzfcgLonghuaProjectItem(website_name=website_name, publish_time=publish_time, ip=ip,
+        item = SzzfcgLonghuaProjectItem(publish_time=publish_time, ip=ip,
                                           bidding_name=bidding_name, bidding_url=bidding_url,
                                           bidding_content=bidding_content, bidding_tenderee=bidding_tenderee,
                                           bidding_block=bidding_block, bidding_open_time=bidding_open_time,
