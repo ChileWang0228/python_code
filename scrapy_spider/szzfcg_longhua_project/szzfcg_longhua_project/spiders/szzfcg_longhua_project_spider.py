@@ -10,8 +10,13 @@ print(timeStamp)
 class SzzcfgLonghuaProjectSpider(scrapy.Spider):
     name = "szzcfg_longhua_project"  # 爬虫名称
     allowed_domains = ["szzfcg.cn"]  # 允许域名
+    # 首页
+    s_url = "http://www.szzfcg.cn/portal/topicView.do?method=viewList&id=500100201&siteId=11&" + \
+            "tstmp=" + str(timeStamp) + \
+            "GMT%2B0800%20(Hong%20Kong%20Standard%20Time)"
+    print(s_url)
     start_urls = [
-        "http://www.szzfcg.cn/portal/topicView.do?method=viewList&id=500100201&siteId=11&tstmp=15%3A40%3A03%20GMT%2B0800%20(Hong%20Kong%20Standard%20Time)"
+        s_url
     ]
 
     def parse(self, response):
