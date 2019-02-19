@@ -22,10 +22,10 @@ class SzzcfgLonghuaProjectSpider(scrapy.Spider):
     def parse(self, response):
         project_list_position = response.xpath(".//*/ul/li")  # 采购信息列表位置
         for project in project_list_position:
-            project_list_url = project.xpath("./a/@href")  # 获取具体的招标项目链接
+            project_url = project.xpath("./a/@href")  # 获取具体的招标项目链接
             website_name = project.xpath("./a/@title")  # 网站名称
             item = SzzfcgLonghuaProjectItem(website_name=website_name)
-            request = scrapy.Request(url=project_list_url, callback=self.parse_detail)
+            request = scrapy.Request(url=project_url, callback=self.parse_detail)
             request.meta['item'] = item  # 将item暂存
             yield request
 
