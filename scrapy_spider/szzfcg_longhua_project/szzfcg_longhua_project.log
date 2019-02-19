@@ -3133,3 +3133,13 @@ Traceback (most recent call last):
   File "/root/anaconda3/lib/python3.7/site-packages/scrapy/core/downloader/middleware.py", line 43, in process_request
     defer.returnValue((yield download_func(request=request,spider=spider)))
 twisted.internet.error.ConnectionRefusedError: Connection was refused by other side: 111: Connection refused.
+2019-02-19 16:52:02 [scrapy.downloadermiddlewares.robotstxt] ERROR: Error downloading <GET http://www.szzfcg.cn/robots.txt>: Connection was refused by other side: 111: Connection refused.
+Traceback (most recent call last):
+  File "/root/anaconda3/lib/python3.7/site-packages/scrapy/core/downloader/middleware.py", line 43, in process_request
+    defer.returnValue((yield download_func(request=request,spider=spider)))
+twisted.internet.error.ConnectionRefusedError: Connection was refused by other side: 111: Connection refused.
+2019-02-19 16:53:05 [scrapy.core.scraper] ERROR: Error downloading <GET http://www.szzfcg.cn/portal/topicView.do?method=viewList&id=500100201&siteId=11&tstmp=15%3A40%3A03%20GMT%2B0800%20(Hong%20Kong%20Standard%20Time)>
+Traceback (most recent call last):
+  File "/root/anaconda3/lib/python3.7/site-packages/scrapy/core/downloader/middleware.py", line 43, in process_request
+    defer.returnValue((yield download_func(request=request,spider=spider)))
+twisted.internet.error.ConnectionRefusedError: Connection was refused by other side: 111: Connection refused.

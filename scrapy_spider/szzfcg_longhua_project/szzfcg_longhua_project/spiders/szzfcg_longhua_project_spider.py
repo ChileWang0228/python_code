@@ -5,6 +5,8 @@ from szzfcg_longhua_project.items import SzzfcgLonghuaProjectItem
 
 timeStamp = int(time.time())
 print(timeStamp)
+
+
 class SzzcfgLonghuaProjectSpider(scrapy.Spider):
     name = "szzcfg_longhua_project"  # 爬虫名称
     allowed_domains = ["szzfcg.cn"]  # 允许域名
@@ -16,10 +18,11 @@ class SzzcfgLonghuaProjectSpider(scrapy.Spider):
         project_list_position = response.xpath(".//*/ul/li")  # 采购信息列表位置
         for project in project_list_position:
             project_list_url = project.xpath("./a/@href")  # 获取具体的招标项目链接
+            website_name = project.xpath("./a/@title")  # 网站名称
+            item = SzzfcgLonghuaProjectItem(website_name=website_name)
             request = scrapy.Request(url=project_list_url, callback=self.parse_detail)
+            request.meta['item'] = item  # 将item暂存
             yield request
-        # print(project_list_position.xpath("./a/@href"))
-        # print(project_list_position.xpath("./a/@title"))
 
         page_num_position = response.xpath(".//*[@class='page']//*/a")  # 页码位置
         total_page_num = page_num_position[6].xpath(".//*/b/text()").extract()[0]   # 总页码
@@ -44,7 +47,7 @@ class SzzcfgLonghuaProjectSpider(scrapy.Spider):
         处理具体的招标项目信息
         :return:
         """
-        website_name = '深圳市龙华区公共资源交易中心'  # 网站名称
+        # website_name = '深圳市龙华区公共资源交易中心'  # 网站名称
         publish_time = ''  # 发布时间
         ip = ''  # 爬虫ip
         html_content = response.xpath(".//*[@id='contentDiv']//*/tbody//*/tbody/tr/td")  # 要抽取的html所有内容
