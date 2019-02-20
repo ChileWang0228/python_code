@@ -22,9 +22,12 @@ class SzzcfgLonghuaProjectSpider(scrapy.Spider):
     def parse(self, response):
         project_list_position = response.xpath(".//*/ul/li")  # 采购信息列表位置
         for project in project_list_position:
-            project_url = project.xpath("./a/@href")  # 获取具体的招标项目链接
-            website_name = project.xpath("./a/@title")  # 网站名称
-            item = SzzfcgLonghuaProjectItem(website_name=website_name)
+            project_url_id = project.xpath("./a/@href").extract()[0].split('=')[1]   # 获取具体的招标项目链接的id
+            website_name = project.xpath("./a/@title").extract()[0]   # 网站名称
+            publish_time = project.xpath("./span/text()").extract()[0]   # 发布时间
+            project_url = "http://www.szzfcg.cn/portal/documentView.do?method=view&id=" + str(project_url_id)
+            print(project_url, website_name, publish_time)
+            item = SzzfcgLonghuaProjectItem(website_name=website_name, publish_time=publish_time)
             request = scrapy.Request(url=project_url, callback=self.parse_detail)
             request.meta['item'] = item  # 将item暂存
             yield request
@@ -53,7 +56,7 @@ class SzzcfgLonghuaProjectSpider(scrapy.Spider):
         :return:
         """
         # website_name = '深圳市龙华区公共资源交易中心'  # 网站名称
-        publish_time = ''  # 发布时间
+        # publish_time = ''  # 发布时间
         ip = ''  # 爬虫ip
         html_content = response.xpath(".//*[@id='contentDiv']//*/tbody//*/tbody/tr/td")  # 要抽取的html所有内容
 
@@ -77,6 +80,7 @@ class SzzcfgLonghuaProjectSpider(scrapy.Spider):
         # 重新构造item
         item = response.meta['item']
         website_name = item['website_name']
+        publish_time = item['publish_time']
         item = SzzfcgLonghuaProjectItem(website_name=website_name, publish_time=publish_time, ip=ip,
                                           bidding_name=bidding_name, bidding_url=bidding_url,
                                           bidding_content=bidding_content, bidding_tenderee=bidding_tenderee,
