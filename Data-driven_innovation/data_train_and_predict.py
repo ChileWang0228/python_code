@@ -396,7 +396,7 @@ def get_fina_result():
 
 
 if __name__ == '__main__':
-    # process_data()
+    process_data()
     get_fina_result()
 
     # x = np.array([[1, 2, 3], [4, 5, 6], [1, 2, 1]])
