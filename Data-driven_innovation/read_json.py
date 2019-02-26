@@ -32,7 +32,7 @@ def write_json(important_feature_dict, file_name):
     :return:
     """
     important_feature_json = json.dumps(important_feature_dict)
-    with open('%s.json' % file_name, 'w', encoding='UTF-8') as fw:
+    with open('read_json_output_file/%s.json' % file_name, 'w', encoding='UTF-8') as fw:
         fw.write(important_feature_json)
 
 
@@ -91,7 +91,10 @@ def convert_to_df():
     将stata文件中的重要特征抽取出来，并合成一张dataframe表格
     :return:
     """
-    data_merge_file_name = ['2010.csv', '2012.csv', '2014.csv', '2016.csv']  # 装载每个年份合并之后的DataFrame的文件名
+    # 装载每个年份合并之后的DataFrame的文件名
+    data_merge_file_name = ['read_json_output_file/2010.csv', 'read_json_output_file/2012.csv',
+                            'read_json_output_file/2014.csv', 'read_json_output_file/2016.csv']
+
     data_path = read_json()  # 读取stata文件存放地址
     for i in range(len(data_path)):
         temp = []
@@ -105,14 +108,6 @@ def convert_to_df():
                 temp.append(pd_important_feature)
         data_merge(temp, data_merge_file_name[i])  # 合并并生成csv文件
         print('-------------------------')
-
-
-def get_every_year_columns():
-    """
-    并集求每一年所有的特征
-    :return:
-    """
-    pass
 
 
 if __name__ == '__main__':
