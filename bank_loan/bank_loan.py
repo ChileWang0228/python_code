@@ -241,5 +241,7 @@ def main():
 
 
 if __name__ == '__main__':
-    main()
+    # main()
     # pre_process_data()
+    explode_list = [0 for i in range(6)]
+    print(explode_list)

@@ -18,7 +18,10 @@ from sklearn.model_selection import train_test_split, GridSearchCV
 import lightgbm as lgb
 import pickle
 import os
+import matplotlib.pyplot as plt
+import random
 data_to_train_and_test = 'data_to_train_and_test/'  # 训练集和测试集csv文件存放地址
+image_to_save = 'image/'  # 图片存放文件夹
 # pd.set_option('display.max_columns', None)  # 显示所有列
 
 
@@ -204,32 +207,41 @@ def check_model(x, y):
     :return:返回最佳模型
     """
     gb_model = GradientBoostingClassifier(
-                            learning_rate=0.1,  # 选择模型
-                            n_estimators=2500,  # 迭代次数
+                            learning_rate=0.05,  # 学习率
+                            n_estimators=10000,  # 迭代次数
                             min_samples_leaf=70,
                             max_depth=7,
                             subsample=0.85,
                             random_state=10,
-                            min_samples_split=1000
+                            min_samples_split=100,
                             )
     lgb_model = lgb.LGBMClassifier(boosting_type="gbdt",
                                    num_leaves=30, reg_alpha=0, reg_lambda=0.,
                                    max_depth=-1, n_estimators=2500, objective='binary', metric='auc',
                                    subsample=0.9, colsample_bytree=0.7, subsample_freq=1,
                                    learning_rate=0.1,
-                                   random_state=2018)
+                                   random_state=10)
     parm = {
-            # 'max_features': range(7, 20, 2), # 最大特征数
+            # 'n_estimators': range(5000, 6201, 200),  # 迭代范围
+            # 'max_features': range(2, 5, 1), # 最大特征数
+            # 'max_depth': range(3, 14, 2),
+            # 'min_samples_split': range(100, 801, 200),
+            # 'max_features': range(3, 5, 1),
+            # 'subsample': [0.6, 0.7, 0.75, 0.8, 0.85, 0.9],
             }  # 参数
     g_search = GridSearchCV(estimator=gb_model,
                             param_grid=parm,  # 参数
-                            cv=5,  # 五折交叉验证
+                            scoring='roc_auc',
+                            cv=10,  # 10折交叉验证  一定程度上用来减少过拟合
+                            iid=False,  # 独立同分布
                             n_jobs=-1,  # -1 means using all processors
                             verbose=1  # verbose：日志冗长度，int：冗长度，0：不输出训练过程，1：偶尔输出，>1：对每个子模型都输出。
                             )
-    g_search.fit(x, y)
-    print(g_search.best_score_)
-    print(g_search.best_params_)
+    g_search.fit(x, y)  # 运行网格搜索
+    print(g_search.cv_results_['params'])  # 打印候选参数表
+    print(g_search.cv_results_['mean_test_score'])  # 打印不同参数下的训练分数
+    print(g_search.best_score_)  # 最佳分数
+    print(g_search.best_params_)  # 最佳参数
 
     return g_search.best_estimator_  # 返回最佳模型
 
@@ -275,16 +287,139 @@ def nominal_type_statistic(data_set, col):
     col_list = list(temp[col])
     col_rate_list = list(temp['col_rate'])
     col_dict = dict(zip(col_list, col_rate_list))
+
     fina_data_list = list()  # 最终返回的数据类型列表
-    threshold_rate = 0.95  # 阈值占比
+    threshold_rate = 0.85  # 阈值占比
     sum_rate = 0.0  # 累计占比
+    name_rate = []  # 饼图的占比
     for key in col_dict.keys():
         if sum_rate >= threshold_rate:
             fina_data_list.append(key)  # 剩余的类别归并成一类
+            name_rate.append(1 - sum_rate)
             break
         sum_rate += col_dict[key]
+        name_rate.append(col_dict[key])
         fina_data_list.append(key)
+    # 生成饼图
+    # draw_pie_chart(fina_data_list, name_rate, col + ' pie chart')
     return fina_data_list
+
+
+def produce_color(num):
+    """
+    随机生成num个不同的颜色
+    :param num: 数量
+    :return:
+    """
+    color_arr = ['1', '2', '3', '4', '5', '6', '7', '8', '9', 'A', 'B', 'C', 'D', 'E', 'F']
+    color_list = []
+    while len(color_list) < num:
+        color = ""
+        for j in range(6):
+            color += color_arr[random.randint(0, 14)]
+        color = "#" + color
+        if ~(color in color_list):  # 若该颜色不在该列表，则添加
+            color_list.append(color)
+    return color_list
+
+
+def draw_bar_chart(name_list, heights, x_label, y_label, title):
+    """
+    绘制条形图
+    :param name_list: 名字列表
+    :param heights:　名字对应的数值列表
+    :param x_label:　X轴名字
+    :param y_label:　Y轴名字
+    :param title:　表名
+    :return:
+    """
+    plt.ion()  # 显示图片
+    # 设置条形码的相应位置
+    positions = [i for i in range(len(name_list))]
+    plt.bar(positions, heights, color=produce_color(1), alpha=0.8, align='center', edgecolor='white')
+    # 设置坐标轴名称
+    plt.xlabel(x_label)
+    plt.ylabel(y_label)
+    plt.xticks(positions, name_list)  # 设置数据分类名称
+    plt.title(title)  # 设置标题名称
+    # 设置数字标签
+    for x, y in zip(positions, heights):
+        """
+        其中，a, b+0.05表示在每一柱子对应x值、y值上方0.05处标注文字说明， 
+        '%.0f' % b,代表标注的文字，即每个柱子对应的y值，
+         ha='center', va= 'bottom'代表horizontalalignment（水平对齐）、
+         verticalalignment（垂直对齐）的方式，fontsize则是文字大小。
+        """
+        plt.text(x, y+0.05, '%.0f' % y, ha='center', va='bottom')
+    plt.legend([y_label], loc='upper right')  # 图例
+    # plt.grid()  # 网格线
+    plt.savefig(image_to_save + title)  # 保存图片
+    plt.pause(1)  # 显示秒数
+    plt.close()
+
+
+def draw_pie_chart(name_list, name_rate, title):
+    """
+    生成饼图
+    :param name_list: 名字列表
+    :param name_rate: 名字对应的百分比
+    :param title: 表名
+    :return:
+    """
+    plt.ion()  # 显示图片
+    color_list = produce_color(len(name_list))  # 生成互不相同的颜色
+    explode_list = [0 for i in range(len(name_list))]  # 构造饼图分割表
+    explode_list[-1] = 0.15  # 最后一个名字分割出来
+    plt.pie(name_rate, labels=name_list, colors=color_list, explode=explode_list, startangle=60, autopct='%1.1f%%')
+    plt.title(title)
+    plt.legend(name_list, loc='upper left')
+    plt.savefig(image_to_save + title)  # 保存图片
+    plt.pause(1)  # 显示秒数
+    plt.close()
+
+
+def draw_roc_line(positive_rate, negative_rate, y_label_list, auc_scorce):
+    """
+    绘制roc折线图
+    根据样本标签统计出
+    正负样本的数量，假设正样本数量为P，负样本数量为N；接下来，把横轴的刻度
+    间隔设置为1/N，纵轴的刻度间隔设置为1/P；再根据模型输出的预测概率对样本进
+    行排序（从高到低）；依次遍历样本，同时从零点开始绘制ROC曲线，每遇到一
+    个正样本就沿纵轴方向绘制一个刻度间隔的曲线，每遇到一个负样本就沿横轴方
+    向绘制一个刻度间隔的曲线，直到遍历完所有样本，曲线最终停在（1,1）这个
+    点，整个ROC曲线绘制完成。
+    :param positive_rate: １/正样本个数
+    :param negative_rate: １/负样本个数
+    :param y_label_list: 基于预测概率从高到底排序的真实标签列表
+    :param auc_scorce: auc面积
+    :return:
+    """
+    plt.ion()  # 显示图片
+    # 从(0, 0)开始
+    x = 0
+    y = 0
+    x_list = [0]  # 横坐标
+    y_list = [0]  # 纵坐标
+    for label in y_label_list:
+        if label == 1:  # 正样本
+            y += positive_rate
+            x_list.append(x)
+            y_list.append(y)
+        else:  # 负样本
+            x += negative_rate
+            x_list.append(x)
+            y_list.append(y)
+    # 到(1, 1)结束
+    x_list.append(1)
+    y_list.append(1)
+    plt.plot(x_list, y_list, "b--", linewidth=1, label='auc score = ' + str(auc_scorce))  # (X轴，Y轴，蓝色虚线，线宽度, 图例)
+    plt.xlabel('FPR')
+    plt.ylabel('TPR')
+    plt.title('ROC Curve')
+    plt.legend()  # 让图例显效
+    plt.savefig(image_to_save + 'roc_curve')  # 保存图片
+    plt.pause(5)  # 显示秒数
+    plt.close()
 
 
 def process_data():
@@ -294,11 +429,30 @@ def process_data():
     """
     train_set = pd.read_csv(data_to_train_and_test + 'train_set.csv')
     test_set = pd.read_csv(data_to_train_and_test + 'test_set.csv')
+
+    # 生成训练集和测试集的数量条形图
+    name_list = ['train set', 'test set']
+    heights = [train_set.shape[0], test_set.shape[0]]
+    x_label = 'data set'
+    y_label = 'amount of data set'
+    title = 'amount of train set and test set'
+    # draw_bar_chart(name_list, heights, x_label, y_label, title)
+
     numerical_type = ['qa1age', 'qk601', 'fe601', 'fe802', 'fe903', 'ff2', 'indinc',
                       'land_asset', 'total_asset', 'expense', 'familysize', 'fproperty']  # 数值型特征
     nominal_type = ['provcd', 'countyid', 'urban', 'gender', 'qd3', 'qe1_best', 'qe507y',
                     'qe211y', 'qp3', 'wm103', 'wn2', 'birthy_best', 'alive_a_p', 'tb3_a_p',
                     'tb4_a_p', 'alive_a_f', 'alive_a_m', 'tb6_a_f', 'tb6_a_m']  # 标称型特征
+
+    # 生成数值特征和标称特征的饼图和条形图
+    name_list = ['nominal_type', 'numerical_type']
+    name_rate = [len(nominal_type), len(numerical_type)]
+    title = 'numerical_type and nominal_type'
+    # draw_pie_chart(name_list, name_rate, title)
+    x_label = 'type of features'
+    y_label = 'amount of features'
+    # draw_bar_chart(name_list, name_rate, x_label, y_label, title)
+
     year_type = ['qe507y', 'qe211y', 'birthy_best']  # 年份型标称变量, 对其进行分桶
     df_list = [train_set, test_set]  # 将训练集和测试集放入列表中
     df_list = year_partition(df_list, year_type)  # 将年份的分桶
@@ -306,17 +460,22 @@ def process_data():
     for df in df_list:
         df[nominal_type] = df[nominal_type].fillna(-30)
     family_loss_set = df_list[0][df_list[0]['label'] == 1].copy()  # 抽出label为１的个人流失数据
-    # print(family_loss_set.shape[0])
+
+    # 生成训练集label=1和label=0的饼图和条形图
+    name_list = ['0', '1']
+    name_rate = [df_list[0][df_list[0]['label'] == 0].shape[0], df_list[0][df_list[0]['label'] == 1].shape[0]]
+    title = 'percentage of label type in train set'
+    # draw_pie_chart(name_list, name_rate, title)
+    title = 'amount of label type in train set'
+    x_label = 'type of labels'
+    y_label = 'amount of labels'
+    # draw_bar_chart(name_list, name_rate, x_label, y_label, title)
+
     for nt in nominal_type:  # 对特定的标称型特征进行占比统计
         fina_key_list = nominal_type_statistic(family_loss_set, nt)  # 得到最终的占比统计类别与剩余类别　
-        # print(nt)
-        # print(fina_key_list)
         # 对训练集和测试集合相应的特征进行新的分类, 若类在于fina_key_list当中，则继续应用，否则将以得到的剩余类别将其分类
         df_list[0][nt] = df_list[0][nt].apply(lambda x: x if x in fina_key_list else fina_key_list[-1])
         df_list[1][nt] = df_list[1][nt].apply(lambda x: x if x in fina_key_list else fina_key_list[-1])
-        # print(df_list[0][nt].unique())
-        # print(df_list[1][nt].unique())
-        # print('-----family_loss_set------')
 
     # 数值型特征缺失值补充
     df_list = medium_fill(df_list, numerical_type)
@@ -324,6 +483,7 @@ def process_data():
     # 特征选择
     df_list = var_delete(df_list, nominal_type, numerical_type)  # 方差选择法
     df_list = select_best_chi2(df_list)  # 卡方验证选择法
+
     # 标称型独热编码
     columns = df_list[1].columns.values.tolist()  # 测试集不包含label
     new_nominal_type = list(set(columns) & set(nominal_type))  # 新的标称型列
@@ -333,11 +493,12 @@ def process_data():
         print(df.head(5))
     new_feature = new_nominal_type + new_numerical_type  # 新的特征列
     print(new_feature)
+
     # PCA降维
-    n_components = 8  # pca的维度
+    n_components = 5  # pca的维度
     new_pridictors = ['a' + str(i) for i in range(n_components)]  # 降维后的新特征
-    pca_train_set = pd.DataFrame(pca_decompose(df_list[0][new_feature].as_matrix(), n_components), columns=new_pridictors)  # DF转矩阵
-    pca_test_set = pd.DataFrame(pca_decompose(df_list[1][new_feature].as_matrix(), n_components), columns=new_pridictors)  # DF转矩阵
+    pca_train_set = pd.DataFrame(pca_decompose(df_list[0][new_feature].values, n_components), columns=new_pridictors)  # DF转矩阵
+    pca_test_set = pd.DataFrame(pca_decompose(df_list[1][new_feature].values, n_components), columns=new_pridictors)  # DF转矩阵
     # 将相应的id补上
     pca_train_set['label'] = df_list[0]['label']
     pca_train_set['pid'] = train_set['pid']
@@ -354,20 +515,29 @@ def process_data():
     x = new_train_set[new_pridictors]
     y = new_train_set['label']
     model = check_model(x, y)
+    # model = get_model()
 
     # 验证
     x_valid = new_valid_set[new_pridictors]
     y_valid = new_valid_set['label']
     y_pred = model.predict(x_valid)
     y_pred_prob = model.predict_proba(x_valid)[:, 1]
+    auc_score = roc_auc_score(y_valid, y_pred_prob)
     print('Accuracy: %.4g' % accuracy_score(y_valid.values, y_pred))
-    print('AUC Score (Train): %.4g' % roc_auc_score(y_valid, y_pred_prob))
+    print('AUC Score (Train): %.4g' % auc_score)
+
+    # 绘制roc曲线
+    positive_rate = 1/(new_valid_set[new_valid_set['label'] == 1].shape[0])  # 正样本刻度
+    negative_rate = 1/(new_valid_set[new_valid_set['label'] == 0].shape[0])  # 负样本刻度
+    temp_dict = {'label': y_valid, 'pred_prob': y_pred_prob}
+    temp = pd.DataFrame(temp_dict)
+    temp.sort_values('pred_prob', inplace=True, ascending=False)  # 基于预测概率倒序排序
+    draw_roc_line(positive_rate, negative_rate, list(temp['label']), auc_score)
 
     # 测试
     test_x = new_test_set[new_pridictors]
     test_y_pred_prob = model.predict_proba(test_x)[:, 1]
     test_y_label = model.predict(test_x)
-    print(test_y_label)
     new_test_set['pred'] = test_y_pred_prob
     new_test_set['label'] = test_y_label
     summit_file = new_test_set[['pid', 'fid', 'pred', 'label']].copy()
@@ -383,7 +553,7 @@ def get_fina_result():
     生成最终流失的1500个fid
     :return:
     """
-    get_model()
+    # get_model()
     result = pd.read_csv('summit.csv')
     result = result[['fid', 'pred']].copy()
     result['count'] = 1
@@ -397,30 +567,6 @@ def get_fina_result():
 
 if __name__ == '__main__':
     process_data()
-    get_fina_result()
-
-    # x = np.array([[1, 2, 3], [4, 5, 6], [1, 2, 1]])
-    # x1 = StandardScaler().fit_transform(x)
-    # print(x1)
-    # print(len(numerical_type) + len(nominal_type))
-
-    # columns = train_set.columns.values.tolist()
-    # for i in range(len(columns) - 1):
-    #     col = columns[i]
-    #     print(col, train_set[col].unique())
-    #     print(col, valid_set[col].unique())
-    #     print(col, test_set[col].unique())
-    #     print('--------------')
-
-    # from sklearn.datasets import load_iris
-    # iris = load_iris()
-    # print(iris.data)
-    # model1 = SelectKBest(chi2, k=2)  # 选择k个最佳特征
-    # model1.fit_transform(iris.data, iris.target)
-    # # print(columns)
-    # # print(x)
-    # columns = ['a', 'b', 'c', 'd']
-    # index = model1.get_support(indices=True)
-    # print(index)
+    # get_fina_result()
 
 
