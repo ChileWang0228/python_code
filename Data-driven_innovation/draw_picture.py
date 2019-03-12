@@ -11,9 +11,9 @@ from data_train_and_predict import *
 import matplotlib.pyplot as plt
 import random
 import json
-from data_consistence import consistent_file_dir  # 存放用来画数值型特征图的地址
+from sklearn.metrics import confusion_matrix
 
-plt.rcParams['font.family'] = ['SimHei']  # 用来正常显示中文标签
+# plt.rcParams['font.family'] = ['SimHei']  # 用来正常显示中文标签
 plt.rcParams['axes.unicode_minus'] = False  # 解决保存图像是负号'-'显示为方块的问题
 image_to_save = 'image/'  # 图片存放文件夹
 nominal_dividing_bucket_meaning = 'JSON/nominal_dividing_bucket/'  # 标称型分桶字典的具体含义
@@ -195,14 +195,33 @@ def nominal_type_statistic_draw(data_set, col, title):
         fina_data_list.append(key)
 
     # 生成饼图
-    draw_pie_chart(fina_data_list, name_rate, meaning + title)
+    # draw_pie_chart(fina_data_list, name_rate, meaning + title)
     return col_list
+
+
+def draw_confuse_matrix(y_true, y_preb,  title='Confusion Matrix'):
+    """
+
+    :param y_true: 真实标签
+    :param y_preb: 预测标签
+    :param title: 表名
+    :return:
+    """
+    cm = confusion_matrix(y_true, y_preb)
+    plt.imshow(cm, interpolation='nearest')
+    plt.title(title)
+    plt.colorbar()
+    labels = list(set(y_true))
+    xlocations = np.array(range(len(labels)))
+    plt.xticks(xlocations, labels, rotation=90)
+    plt.yticks(xlocations, labels)
+    plt.ylabel('True label')
+    plt.xlabel('Predicted label')
 
 
 def draw_nominal_and_roc_pic(model_name):
     """
     画标称型特征图和ROC曲线
-    :param model_name: 选择的模型
     :return:
     """
     train_set = pd.read_csv(data_to_train_and_test + 'train_set.csv')
@@ -300,6 +319,11 @@ def draw_nominal_and_roc_pic(model_name):
     temp.sort_values('pred_prob', inplace=True, ascending=False)  # 基于预测概率倒序排序
     draw_roc_line(positive_rate, negative_rate, list(temp['label']), auc_score)
 
+    # 绘制混淆矩阵
+    draw_confuse_matrix(list(y_valid), list(y_pred))
+    pic = pd.crosstab(list(y_valid), list(y_pred), rownames=['True label'], colnames=['Predicted label'])
+    print(pic)
+
 
 def years_old_judge(row):
     """
@@ -351,8 +375,8 @@ def family_size_judge(row):
     """
     if row < 3:
         return '1~2人'
-    elif (row >= 2) and (row < 5):
-        return '2~4人'
+    elif (row >= 3) and (row < 5):
+        return '3~4人'
     elif (row >= 5) and (row < 8):
         return '5~7人'
     elif row >= 8:

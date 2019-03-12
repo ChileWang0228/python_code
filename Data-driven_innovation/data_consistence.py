@@ -79,10 +79,6 @@ def build_train_and_test_set():
     new_data_2012['label'] = new_data_2012.fid.apply(lambda x: 0 if x in common_fid else 1)
     common_fid = set(new_data_2014['fid']) & set(new_data_2016['fid'])
     new_data_2014['label'] = new_data_2014.fid.apply(lambda x: 0 if x in common_fid else 1)
-    # print(new_data_2010.shape[0])
-    # print(new_data_2012.shape[0])
-    # print(new_data_2014.shape[0])
-    # print(new_data_2016.shape[0])
 
     # 构造训练集
     new_data_2010.to_csv(data_to_train_and_test + 'train_set.csv', index=None)  # 不要索引

@@ -11,17 +11,13 @@ import json
 import pandas as pd
 from pandas.io.stata import StataReader
 
-adult_dir_path = 'JSON/adult_%s_important_dict.json'
-
-child_dir_path = 'JSON/child_%s_important_dict.json'
-
-famcof_dir_path = 'JSON/famcof_%s_important_dict.json'
-
-family_dir_path = 'JSON/family_%s_important_dict.json'
+adult_dir_path = 'JSON/adult_%s_important_dict.json'  # 存放成人重要特征的json文件路径
+child_dir_path = 'JSON/child_%s_important_dict.json'  # 存放小孩重要特征的json文件路径
+famcof_dir_path = 'JSON/famcof_%s_important_dict.json'  # 存放家庭社区重要特征的json文件路径
+family_dir_path = 'JSON/family_%s_important_dict.json'  # 存放家庭重要特征的json文件路径
 years = ['2010', '2012', '2014', '2016']
-json_data_dir = [adult_dir_path, child_dir_path, famcof_dir_path, family_dir_path]  # 存放数据的路径
-# 存放数据的路径
-data_year_dir = '/home/chilewang/Desktop/Data/'
+json_data_dir = [adult_dir_path, child_dir_path, famcof_dir_path, family_dir_path]  # 存放json文件的路径
+data_year_dir = '/home/chilewang/Desktop/Data/'  # 存放数据的路径
 
 
 def write_json(important_feature_dict, file_name):
@@ -88,7 +84,7 @@ def data_merge(df_list, file_name):
 
 def convert_to_df():
     """
-    将stata文件中的重要特征抽取出来，并合成一张dataframe表格
+    将stata文件中的重要特征抽取出来，每一年合成一张dataframe表格
     :return:
     """
     # 装载每个年份合并之后的DataFrame的文件名
