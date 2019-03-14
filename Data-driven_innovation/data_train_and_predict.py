@@ -14,11 +14,12 @@ from sklearn.preprocessing import StandardScaler, MinMaxScaler
 from sklearn.linear_model import LogisticRegression
 from sklearn.pipeline import Pipeline
 from sklearn import decomposition
-from sklearn.metrics import accuracy_score, roc_auc_score, f1_score, recall_score, precision_score
+from sklearn.metrics import accuracy_score, roc_auc_score, f1_score, recall_score, \
+    precision_score, confusion_matrix, precision_recall_curve
 from sklearn.ensemble import GradientBoostingClassifier
 from sklearn.model_selection import train_test_split, GridSearchCV, KFold
-# import lightgbm as lgb
 import pickle
+import xgboost as xgb
 
 import matplotlib.pyplot as plt
 
@@ -176,7 +177,7 @@ def check_model(x, y):
     拟合的模型
     :return:返回最佳模型
     """
-    gb_model = GradientBoostingClassifier(
+    gbdt_model = GradientBoostingClassifier(
                             learning_rate=0.05,  # 学习率
                             n_estimators=10000,  # 迭代次数
                             min_samples_leaf=70,
@@ -202,16 +203,24 @@ def check_model(x, y):
             # 当然，用sklearn的StandardScaler可以很方便地完成这一点
             ('en', lr_model())  # estimator
         ])
-    # lgb_model = lgb.LGBMClassifier(boosting_type="gbdt",
-    #                                num_leaves=30, reg_alpha=0, reg_lambda=0.,
-    #                                max_depth=-1, n_estimators=2500, objective='binary', metric='auc',
-    #                                subsample=0.9, colsample_bytree=0.7, subsample_freq=1,
-    #                                learning_rate=0.1,
-    #                                random_state=10)
+
+    xgb_model = xgb.XGBClassifier(
+        learning_rate=0.05,  # 学习率
+        n_estimators=3800,  # 迭代次数
+        max_depth=9,
+        subsample=0.9,
+        random_state=10,
+        min_child_weight=1,
+        colsample_bytree=0.8,
+        seed=0,
+        gamma=0.3,
+        reg_alpha=1,
+        reg_lambda=0.05
+    )
     parm = {
             # GBDT调参
-            'learning_rate': [0.05, 0.1],
-            'n_estimators': range(8500, 11001, 300),  # 迭代范围
+            # 'learning_rate': [0.05, 0.1],
+            # 'n_estimators': range(800, 4000, 300),  # 迭代范围
             # 'max_features': range(2, 5, 1), # 最大特征数
             # 'max_depth': range(3, 14, 2),
             # 'min_samples_split': range(100, 801, 200),
@@ -222,8 +231,14 @@ def check_model(x, y):
             # 'en__max_iter': range(10, 150, 5),
             # 'en__penalty': ('l1', 'l2'),
             # 'en__C': (0.01, 0.1, 1, 2.5, 5, 7.5, 10),
+
+            # xgb调参
+            # 'learning_rate': [0.05, 0.1],
+            # 'n_estimators': range(800, 4000, 300),  # 迭代范围
+            # 'reg_alpha': [0.05, 0.1, 1, 2, 3],
+            # 'reg_lambda': [0.05, 0.1, 1, 2, 3],
             }  # 参数
-    g_search = GridSearchCV(estimator=gb_model,  # gb_model lr_pipe
+    g_search = GridSearchCV(estimator=xgb_model,  # gbdt_model lr_pipe xgb_model
                             param_grid=parm,  # 参数
                             scoring='roc_auc',
                             cv=10,  # 10折交叉验证  一定程度上用来减少过拟合
@@ -325,6 +340,97 @@ def draw_polygonal_line(x, y, title, color='bx-', x_label='X', y_label='Y'):
     plt.close()
 
 
+def draw_roc_line(positive_rate, negative_rate, y_label_list, auc_scorce):
+    """
+    绘制roc折线图
+    根据样本标签统计出
+    正负样本的数量，假设正样本数量为P，负样本数量为N；接下来，把横轴的刻度
+    间隔设置为1/N，纵轴的刻度间隔设置为1/P；再根据模型输出的预测概率对样本进
+    行排序（从高到低）；依次遍历样本，同时从零点开始绘制ROC曲线，每遇到一
+    个正样本就沿纵轴方向绘制一个刻度间隔的曲线，每遇到一个负样本就沿横轴方
+    向绘制一个刻度间隔的曲线，直到遍历完所有样本，曲线最终停在（1,1）这个
+    点，整个ROC曲线绘制完成。
+    :param positive_rate: １/正样本个数
+    :param negative_rate: １/负样本个数
+    :param y_label_list: 基于预测概率从高到底排序的真实标签列表
+    :param auc_scorce: auc面积
+    :return:
+    """
+    plt.ion()  # 显示图片
+    # 从(0, 0)开始
+    x = 0
+    y = 0
+    x_list = [0]  # 横坐标
+    y_list = [0]  # 纵坐标
+    for label in y_label_list:
+        if label == 1:  # 正样本
+            y += positive_rate
+            x_list.append(x)
+            y_list.append(y)
+        else:  # 负样本
+            x += negative_rate
+            x_list.append(x)
+            y_list.append(y)
+    # 到(1, 1)结束
+    x_list.append(1)
+    y_list.append(1)
+    plt.plot(x_list, y_list, "b--", linewidth=1, label='auc score = ' + str(auc_scorce))  # (X轴，Y轴，蓝色虚线，线宽度, 图例)
+    plt.xlabel('FPR')
+    plt.ylabel('TPR')
+    plt.title('ROC Curve')
+    plt.legend(loc='best')  # 让图例显效
+    plt.savefig(image_to_save + 'roc_curve')  # 保存图片
+    plt.pause(5)  # 显示秒数
+    plt.close()
+
+
+def draw_confuse_matrix(y_true, y_preb,  title='Confusion Matrix'):
+    """
+    画混淆矩阵
+    :param y_true: 真实标签
+    :param y_preb: 预测标签
+    :param title: 表名
+    :return:
+    """
+    plt.ion()  # 显示图片
+    labels = list(set(y_true))
+    cm = confusion_matrix(y_true, y_preb, labels=labels)
+    print(cm)
+    plt.imshow(cm, interpolation='nearest', cmap=plt.cm.binary)
+    plt.title(title)
+    plt.colorbar()
+    xlocations = np.array(range(len(labels)))
+    plt.xticks(xlocations, labels, rotation=90)
+    plt.yticks(xlocations, labels)
+    plt.xlabel('True label')
+    plt.ylabel('Predicted label ')
+    for first_index in range(len(cm)):
+        for second_index in range(len(cm[first_index])):
+            plt.text(first_index, second_index, cm[first_index][second_index], bbox=dict(facecolor="r", alpha=0.65))
+    plt.savefig(image_to_save + 'Confusion_Matrix')
+    plt.pause(5)  # 显示秒数
+    plt.close()
+
+
+def draw_pr_curve(recall, precision, title='P-R Curve'):
+    """
+    画PR曲线
+    :param recall: 召回率
+    :param precision: 精确率
+    :param title: 图片标题
+    :return:
+    """
+    plt.ion()  # 显示图片
+    plt.step(recall, precision, color='b', alpha=0.2, where='post')
+    plt.fill_between(recall, precision, step='post', alpha=0.2, color='b')
+    plt.xlabel('Recall Rate')
+    plt.ylabel('Precision Rate')
+    plt.title(title)
+    plt.savefig(image_to_save + 'PR_Curve')
+    plt.pause(5)  # 显示秒数
+    plt.close()
+
+
 def sample_equilibrium(k, train_set):
     """
     样本均衡
@@ -380,29 +486,6 @@ def single_model_train_and_predict(model_name):
     # 数值型特征缺失值补充
     df_list = medium_fill(df_list, numerical_type)
 
-    # ---------------test--------------
-    # numerical_money_type = ['qk601', 'fe601', 'fe802', 'fe903', 'ff2', 'indinc', 'land_asset', 'total_asset',
-    #                         'expense', 'fproperty']  # 数值型金钱特征
-    # numerical_income_type = ['qk601', 'fe601', 'fe802', 'fe903', 'ff2', 'indinc', 'land_asset', 'total_asset',
-    #                          'fproperty']  # 数值型收入特征
-    # for df in df_list:
-    #     for col in numerical_money_type:
-    #         df[col] = df[col].apply(lambda x: 0 if x == -8 else x)  # 将0替代-8
-    #
-    # # 数值型特征缺失值用每一列的中位数去填充
-    # df_list = medium_fill(df_list, numerical_type)
-    #
-    # for df in df_list:
-    #     df['total_funds'] = 0
-    #     for col in numerical_income_type:
-    #         df['total_funds'] += df[col]
-    #     df['total_funds'] -= df['expense']  # 减掉自己支出等于资金总和
-    # numerical_type.append('total_funds')
-    # print(numerical_type)
-    # print(df_list[0]['total_funds'].head(5))
-    # print(df_list[1]['total_funds'].head(5))
-    # --------------------------------------
-
     # 特征选择
     df_list = var_delete(df_list, nominal_type, numerical_type)  # 方差选择法
     df_list = select_best_chi2(df_list)  # 卡方验证选择法
@@ -433,223 +516,120 @@ def single_model_train_and_predict(model_name):
     # 建模
     new_train_set, new_valid_set = train_test_split(pca_train_set, test_size=0.2, stratify=pca_train_set['label'], random_state=100)
     new_test_set = pca_test_set
+    # 多模融合评估
+    multiply_model_evaluate(new_valid_set, new_test_set, new_pridictors)
 
+    # 单模训练、评估与预测
     # 训练
     # x = new_train_set[new_pridictors]
     # y = new_train_set['label']
     # model = check_model(x, y)
-    model = get_model(model_name)
+    # model = get_model(model_name)
 
-    # 验证
-    x_valid = new_valid_set[new_pridictors]
-    y_valid = new_valid_set['label']
-    y_pred = model.predict(x_valid)
-    y_pred_prob = model.predict_proba(x_valid)[:, 1]
-    auc_score = roc_auc_score(y_valid, y_pred_prob)
-    print('Accuracy: %.4g' % accuracy_score(y_valid.values, y_pred))
-    print('Precision: %.4g' % precision_score(y_valid.values, y_pred))
-    print('Recall: %.4g' % recall_score(y_valid.values, y_pred))
-    print('F1: %.4g' % f1_score(y_valid.values, y_pred))
-    print('AUC Score (Train): %.4g' % auc_score)
+    # # 验证
+    # x_valid = new_valid_set[new_pridictors]
+    # y_valid = new_valid_set['label']
+    # y_pred = model.predict(x_valid)
+    # y_pred_prob = model.predict_proba(x_valid)[:, 1]
+    # auc_score = roc_auc_score(y_valid, y_pred_prob)
+    # print('Accuracy: %.4g' % accuracy_score(y_valid.values, y_pred))
+    # print('Precision: %.4g' % precision_score(y_valid.values, y_pred))
+    # print('Recall: %.4g' % recall_score(y_valid.values, y_pred))
+    # print('F1: %.4g' % f1_score(y_valid.values, y_pred))
+    # print('AUC Score (Train): %.4g' % auc_score)
+    #
+    # # 绘制roc曲线
+    # positive_rate = 1 / (new_valid_set[new_valid_set['label'] == 1].shape[0])  # 正样本刻度
+    # negative_rate = 1 / (new_valid_set[new_valid_set['label'] == 0].shape[0])  # 负样本刻度
+    # temp_dict = {'label': y_valid, 'pred_prob': y_pred_prob}
+    # temp = pd.DataFrame(temp_dict)
+    # temp.sort_values('pred_prob', inplace=True, ascending=False)  # 基于预测概率倒序排序
+    # draw_roc_line(positive_rate, negative_rate, list(temp['label']), auc_score)
+    #
+    # # 绘制混淆矩阵
+    # draw_confuse_matrix(list(y_valid), list(y_pred))
+    #
+    # # 绘制P-R曲线
+    # precision, recall, _ = precision_recall_curve(y_valid, y_pred_prob)
+    # draw_pr_curve(recall, precision)
+    #
+    # # 测试
+    # test_x = new_test_set[new_pridictors]
+    # test_y_pred_prob = model.predict_proba(test_x)[:, 1]
+    # test_y_label = model.predict(test_x)
+    # new_test_set['pred'] = test_y_pred_prob
+    # new_test_set['label'] = test_y_label
+    # summit_file = new_test_set[['pid', 'fid', 'pred', 'label']].copy()
+    # summit_file.columns = ['pid', 'fid', 'pred', 'label']
+    # summit_file.to_csv('summit.csv', columns=['pid', 'fid', 'pred', 'label'], index=False)  # 不要索引, header=False 不要列头
+    #
+    # # 保存模型
+    # save_model(model, model_name)
 
-    # 测试
-    test_x = new_test_set[new_pridictors]
-    test_y_pred_prob = model.predict_proba(test_x)[:, 1]
-    test_y_label = model.predict(test_x)
-    new_test_set['pred'] = test_y_pred_prob
-    new_test_set['label'] = test_y_label
-    summit_file = new_test_set[['pid', 'fid', 'pred', 'label']].copy()
-    summit_file.columns = ['pid', 'fid', 'pred', 'label']
-    summit_file.to_csv('summit.csv', columns=['pid', 'fid', 'pred', 'label'], index=False)  # 不要索引, header=False 不要列头
 
-    # 保存模型
-    save_model(model, model_name)
-
-
-def multiply_model_evaluate(valid_set, test_set, features, model_name_list):
+def multiply_model_evaluate(valid_set, test_set, features):
     """
     模型融合评估
-    :param valid_set: 验证集
-    :param test_set: 测试集
-    :param features: 特征
-    :param model_name_list: 模型名字
+    :param valid_set:验证集
+    :param test_set:测试集
+    :param features:特征
     :return:
     """
-    accuracy_list = []  # 子模型准确度列表
-    precision_list = []  # 子模型精度列表
-    recall_list = []  # 子模型召回度列表
-    auc_score_list = []  # 子模型auc列表
-    f1_score_list = []  # 子模型f1分数列表
-    k = len(model_name_list)  # 子模型数目
-    for model_name in model_name_list:
-        model = get_model(model_name)
-        # 验证
+    xgb_model = get_model('XGB')
+    gbdt_model = get_model('GBDT')
+    xgb_weight_list = []  # xgb权值列表
+    gbdt_weight_list = []  # gbdt权值列表
+    accuracy_score_list = []  # 准确率列表
+    precision_score_list = []  # 精确率列表
+    recall_score_list = []  # 召回率列表
+    f1_score_list = []  # f1分数列表
+    auc_score_list = []  # auc分数列表
+
+    xgb_weight = 0.1
+    while xgb_weight < 1.0:
         x_valid = valid_set[features]
         y_valid = valid_set['label']
-        y_pred = model.predict(x_valid)  # 标签
-        y_pred_prob = model.predict_proba(x_valid)[:, 1]  # 概率
-        auc_score = roc_auc_score(y_valid, y_pred_prob)
+
+        # 加权概率
+        xgb_pred_prob = xgb_model.predict_proba(x_valid)[:, 1]
+        gbdt_pred_prob = gbdt_model.predict_proba(x_valid)[:, 1]
+        y_pred_prob = xgb_weight * xgb_pred_prob + (1-xgb_weight) * gbdt_pred_prob
+
+        valid_set['pred'] = y_pred_prob  # 概率
+        valid_set['predict_label'] = valid_set['pred'].apply(lambda x: 1 if x >= 0.5 else 0)  # 基于概率上标签
+        y_pred = valid_set['predict_label'].values  # 预测的标签
+        xgb_weight += 0.01  # 权值增加
+        auc_score = roc_auc_score(y_valid, y_pred_prob)  # auc
+
+        # 打印评估结果
+        print('{xgb_weight: %s, gbdt_weight: %s}' % (str(xgb_weight), str(1-xgb_weight)))
+        print(valid_set[valid_set['label'] == 1].shape[0])
         print('Accuracy: %.4g' % accuracy_score(y_valid.values, y_pred))
         print('Precision: %.4g' % precision_score(y_valid.values, y_pred))
         print('Recall: %.4g' % recall_score(y_valid.values, y_pred))
         print('F1: %.4g' % f1_score(y_valid.values, y_pred))
         print('AUC Score (Train): %.4g' % auc_score)
-        auc_score_list.append(auc_score)
-        accuracy_list.append(accuracy_score(y_valid.values, y_pred))
-        precision_list.append(precision_score(y_valid.values, y_pred))
-        recall_list.append(recall_score(y_valid.values, y_pred))
+        print('--------------')
+        xgb_weight_list.append(xgb_weight)
+        gbdt_weight_list.append(1-xgb_weight)
+        accuracy_score_list.append(accuracy_score(y_valid.values, y_pred))
+        precision_score_list.append(precision_score(y_valid.values, y_pred))
+        recall_score_list.append(recall_score(y_valid.values, y_pred))
         f1_score_list.append(f1_score(y_valid.values, y_pred))
+        auc_score_list.append(auc_score)
 
-    # 计算平均值
-    auc_score_mean = np.mean(auc_score_list)
-    auc_score_list.append(auc_score_mean)
-
-    accuracy_mean = np.mean(accuracy_list)
-    accuracy_list.append(accuracy_mean)
-
-    precision_mean = np.mean(precision_list)
-    precision_list.append(precision_mean)
-
-    recall_mean = np.mean(recall_list)
-    recall_list.append(recall_mean)
-
-    f1_score_mean = np.mean(f1_score_list)
-    f1_score_list.append(f1_score_mean)
-    # 生成csv文件
-    sample_name_list = ['S' + str(i + 1) for i in range(k)]  # 样本名称
-    sample_name_list.append('average')  # 平均数
-    show_table = {
-        'Sample': sample_name_list,
-        'auc_score': auc_score_list,
-        'accuracy': accuracy_list,
-        'precision': precision_list,
-        'recall': recall_list,
-        'F1_score': f1_score_list
+    # 将评估结果形成csv文件
+    show_table_dict = {
+        'xgb_weight': xgb_weight_list,
+        'gbdt_weight': gbdt_weight_list,
+        'accuracy': auc_score_list,
+        'precision_rate': precision_score_list,
+        'recall_rate': recall_score_list,
+        'F1_score': f1_score_list,
+        'AUC_score': auc_score_list,
     }
-    show_table_df = pd.DataFrame(show_table)  # 形成Dataframe
+    show_table_df = pd.DataFrame(show_table_dict)
     show_table_df.to_csv('show_table.csv', index=False)  # 不要索引
-
-    # 测试
-    test_set['pred'] = 0
-    for model_name in model_name_list:
-        model = get_model(model_name)
-        test_x = test_set[features]
-        test_y_pred_prob = model.predict_proba(test_x)[:, 1]
-        # test_y_label = model.predict(test_x)
-        test_set['pred'] += test_y_pred_prob
-        # new_test_set['label'] = test_y_label
-        print(test_set['pred'].head(5))
-    test_set['pred'] = test_set['pred'].apply(lambda x: x / k)  # 求概率平均值
-    test_set['label'] = test_set['pred'].apply(lambda x: 1 if x >= 0.5 else 0)  # 根据概率上标签
-    print(test_set['pred'].head(5))
-    print(test_set[test_set['label'] == 1].shape[0])
-    summit_file = test_set[['pid', 'fid', 'pred', 'label']].copy()
-    summit_file.columns = ['pid', 'fid', 'pred', 'label']
-    summit_file.to_csv('summit.csv', columns=['pid', 'fid', 'pred', 'label'], index=False)  # 不要索引, header=False
-
-
-def multiply_model_merging():
-    """
-    多模融合
-    对训练集和测试集进行特征工程处理
-    取训练集的80%做训练集，剩下20%做验证集
-    训练集分为多数类(0)和少数类(1)
-    将多数类分为K份(多数类和少数类的比值)，分别与少数类形成训练子集，分别训练模型
-    得到K个模型，分别对验证集进行验证，统计精确率, 召回率，F1, AUC
-    利用投票原则统计最终的精确率, 召回率，F1, AUC
-    :return:
-    """
-    train_set = pd.read_csv(data_to_train_and_test + 'train_set.csv')
-    test_set = pd.read_csv(data_to_train_and_test + 'test_set.csv')
-    df_list = [train_set, test_set]  # 将训练集和测试集放入列表中
-
-    df_list = year_partition(df_list, year_type)  # 将年份的分桶
-    # 标称型缺失值统一为-30
-    for df in df_list:
-        df[nominal_type] = df[nominal_type].fillna(-30)
-    family_loss_set = df_list[0][df_list[0]['label'] == 1].copy()  # 抽出label为１的个人流失数据
-
-    for nt in nominal_type:  # 对特定的标称型特征进行占比统计
-        fina_key_list = nominal_type_statistic(family_loss_set, nt)  # 得到最终的占比统计类别与剩余类别　
-        # 对训练集和测试集合相应的特征进行新的分类, 若类在于fina_key_list当中，则继续应用，否则将以得到的剩余类别将其分类
-        df_list[0][nt] = df_list[0][nt].apply(lambda x: x if x in fina_key_list else fina_key_list[-1])
-        df_list[1][nt] = df_list[1][nt].apply(lambda x: x if x in fina_key_list else fina_key_list[-1])
-
-    # 数值型特征缺失值补充
-    df_list = medium_fill(df_list, numerical_type)
-
-    # 样本均衡
-    # 将训练集分为0.8训练集　＋　0.2验证集
-    total_train_set, total_valid_set = train_test_split(df_list[0], test_size=0.2, stratify=df_list[0]['label'], random_state=100)
-    more_class_set = total_train_set[total_train_set['label'] == 0].copy()  # 多数类样本
-    less_class_set = total_train_set[total_train_set['label'] == 1].copy()  # 少数类样本
-    imbalance_rate = more_class_set.shape[0] / less_class_set.shape[0]  # 不平衡度
-    k = round(imbalance_rate)  # 四舍五入 聚类ｋ值
-    train_set_list = sample_equilibrium(k, total_train_set)  # train_set_list:K个训练子集
-
-    new_train_and_test_list = []  # 装载训练子集与测试集合
-    new_valid_and_test_list = [total_valid_set, df_list[1]]  # 装载总的验证集与测试集合
-    for train_set in train_set_list:
-        new_train_and_test_list.append([train_set, df_list[1]])
-
-    # 对new_train_and_test_list
-    model_name_list = ['gbdt_' + str(i) for i in range(k)]  # 模型名列表
-    name_index = 0  # 模型名字索引
-    for df_list in new_train_and_test_list:
-        # 特征选择
-        df_list = var_delete(df_list, nominal_type, numerical_type)  # 方差选择法
-        df_list = select_best_chi2(df_list)  # 卡方验证选择法
-
-        # 标称型独热编码
-        columns = df_list[1].columns.values.tolist()  # 测试集不包含label
-        new_nominal_type = list(set(columns) & set(nominal_type))  # 新的标称型列
-        new_numerical_type = list(set(columns) & set(numerical_type))  # 新的数值型列
-        df_list, new_nominal_type = one_hot_encode(df_list, new_nominal_type)  # 独热编码
-        new_feature = new_nominal_type + new_numerical_type  # 新的特征列
-
-        # PCA降维
-        n_components = 5  # pca的维度
-        new_pridictors = ['a' + str(i) for i in range(n_components)]  # 降维后的新特征
-        pca_train_set = pd.DataFrame(pca_decompose(df_list[0][new_feature].values, n_components), columns=new_pridictors)  # DF转矩阵
-        # 将相应的列补上
-        pca_train_set['label'] = list(df_list[0]['label'])
-
-        # 建模
-        new_train_set = pca_train_set
-        # 训练
-        x = new_train_set[new_pridictors]
-        y = new_train_set['label']
-        model = check_model(x, y)
-
-        # 保存模型
-        save_model(model, model_name_list[name_index])
-        name_index += 1
-
-    # 对new_valid_and_test_list
-    # 特征选择
-    new_valid_and_test_list = var_delete(new_valid_and_test_list, nominal_type, numerical_type)  # 方差选择法
-    new_valid_and_test_list = select_best_chi2(new_valid_and_test_list)  # 卡方验证选择法
-
-    # 标称型独热编码
-    columns = new_valid_and_test_list[1].columns.values.tolist()  # 测试集不包含label
-    new_nominal_type = list(set(columns) & set(nominal_type))  # 新的标称型列
-    new_numerical_type = list(set(columns) & set(numerical_type))  # 新的数值型列
-    new_valid_and_test_list, new_nominal_type = one_hot_encode(new_valid_and_test_list, new_nominal_type)  # 独热编码
-    new_feature = new_nominal_type + new_numerical_type  # 新的特征列
-
-    # PCA降维
-    n_components = 5  # pca的维度
-    new_pridictors = ['a' + str(i) for i in range(n_components)]  # 降维后的新特征
-    pca_valid_set = pd.DataFrame(pca_decompose(new_valid_and_test_list[0][new_feature].values, n_components),
-                                 columns=new_pridictors)  # DF转矩阵
-    pca_test_set = pd.DataFrame(pca_decompose(new_valid_and_test_list[1][new_feature].values, n_components),
-                                columns=new_pridictors)  # DF转矩阵
-    # 将相应的id补上
-    pca_valid_set['label'] = list(new_valid_and_test_list[0]['label'])
-    pca_test_set['pid'] = test_set['pid']
-    pca_test_set['fid'] = test_set['fid']
-
-    multiply_model_evaluate(pca_valid_set, pca_test_set, new_pridictors, model_name_list)
 
 
 def get_fina_result():
@@ -669,8 +649,19 @@ def get_fina_result():
 
 
 if __name__ == '__main__':
-    # single_model_train_and_predict('GBDT')  # 单模训练
-    multiply_model_merging()  # 多模融合
+    single_model_train_and_predict('XGB')  # 单模训练
+    # multiply_model_merging()  # 多模融合
     # get_fina_result()　# 获取最终结果
+    # df_draw = pd.read_csv('show_table.csv')
+    # # df_draw.plot(kind='bar')  # 柱状图
+    # # df_draw['AUC_score'].plot(kind='pie')  # 饼图
+    # df_draw.plot()  # 默认折线
+    # # df_draw.plot(kind='bar', stacked=True)  # 堆叠柱状图
+    # plt.ion()
+    # # plt.figure(1, (20, 20))
+    # plt.pause(5)  # 显示秒数
+    # plt.savefig('show_table')
+    # plt.close()
+
 
 
