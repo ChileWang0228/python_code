@@ -516,28 +516,40 @@ def single_model_train_and_predict(model_name):
     # 建模
     new_train_set, new_valid_set = train_test_split(pca_train_set, test_size=0.2, stratify=pca_train_set['label'], random_state=100)
     new_test_set = pca_test_set
-    # 多模融合评估
-    multiply_model_evaluate(new_valid_set, new_test_set, new_pridictors)
 
-    # 单模训练、评估与预测
+    """
+    XGBoost 与 GBDT 简单加权融合，获取模型融合后的最终结果
+    多模融合评估与预测
+    """
+    multiply_model_evaluate(new_valid_set, new_test_set, new_pridictors)
+    """
+    单模训练、评估与预测，获取选择的单模的最终结果
+    """
+    print('---------Process: single model train, assess and predict---------')
     # 训练
+    """
+    若要训练模型，则直接打开下面三行注释；
+    """
     # x = new_train_set[new_pridictors]
     # y = new_train_set['label']
     # model = check_model(x, y)
-    # model = get_model(model_name)
+    """
+    若想要直接使用参赛者训练好的模型，则使用下行代码，注释上面三行代码！
+    """
+    model = get_model(model_name)
 
-    # # 验证
-    # x_valid = new_valid_set[new_pridictors]
-    # y_valid = new_valid_set['label']
-    # y_pred = model.predict(x_valid)
-    # y_pred_prob = model.predict_proba(x_valid)[:, 1]
-    # auc_score = roc_auc_score(y_valid, y_pred_prob)
-    # print('Accuracy: %.4g' % accuracy_score(y_valid.values, y_pred))
-    # print('Precision: %.4g' % precision_score(y_valid.values, y_pred))
-    # print('Recall: %.4g' % recall_score(y_valid.values, y_pred))
-    # print('F1: %.4g' % f1_score(y_valid.values, y_pred))
-    # print('AUC Score (Train): %.4g' % auc_score)
-    #
+    #  验证
+    x_valid = new_valid_set[new_pridictors]
+    y_valid = new_valid_set['label']
+    y_pred = model.predict(x_valid)
+    y_pred_prob = model.predict_proba(x_valid)[:, 1]
+    auc_score = roc_auc_score(y_valid, y_pred_prob)
+    print('Accuracy: %.4g' % accuracy_score(y_valid.values, y_pred))
+    print('Precision: %.4g' % precision_score(y_valid.values, y_pred))
+    print('Recall: %.4g' % recall_score(y_valid.values, y_pred))
+    print('F1: %.4g' % f1_score(y_valid.values, y_pred))
+    print('AUC Score (Train): %.4g' % auc_score)
+
     # # 绘制roc曲线
     # positive_rate = 1 / (new_valid_set[new_valid_set['label'] == 1].shape[0])  # 正样本刻度
     # negative_rate = 1 / (new_valid_set[new_valid_set['label'] == 0].shape[0])  # 负样本刻度
@@ -552,19 +564,24 @@ def single_model_train_and_predict(model_name):
     # # 绘制P-R曲线
     # precision, recall, _ = precision_recall_curve(y_valid, y_pred_prob)
     # draw_pr_curve(recall, precision)
-    #
-    # # 测试
-    # test_x = new_test_set[new_pridictors]
-    # test_y_pred_prob = model.predict_proba(test_x)[:, 1]
-    # test_y_label = model.predict(test_x)
-    # new_test_set['pred'] = test_y_pred_prob
-    # new_test_set['label'] = test_y_label
-    # summit_file = new_test_set[['pid', 'fid', 'pred', 'label']].copy()
-    # summit_file.columns = ['pid', 'fid', 'pred', 'label']
-    # summit_file.to_csv('summit.csv', columns=['pid', 'fid', 'pred', 'label'], index=False)  # 不要索引, header=False 不要列头
-    #
+
+    # 测试
+    test_x = new_test_set[new_pridictors]
+    test_y_pred_prob = model.predict_proba(test_x)[:, 1]
+    test_y_label = model.predict(test_x)
+    new_test_set['pred'] = test_y_pred_prob
+    new_test_set['label'] = test_y_label
+    summit_file = new_test_set[['pid', 'fid', 'pred', 'label']].copy()
+    summit_file.columns = ['pid', 'fid', 'pred', 'label']
+    summit_file.to_csv('summit.csv', columns=['pid', 'fid', 'pred', 'label'], index=False)  # 不要索引, header=False 不要列头
+
+    """
+    获取最终结果 模型选择结果：0代表单模，１代表多模
+    """
+    get_fina_result(0)
     # # 保存模型
-    # save_model(model, model_name)
+    save_model(model, model_name)
+    print('Process:single model train, assess and predict Done!')
 
 
 def multiply_model_evaluate(valid_set, test_set, features):
@@ -575,6 +592,7 @@ def multiply_model_evaluate(valid_set, test_set, features):
     :param features:特征
     :return:
     """
+    print('---------Process: multiply model train, assess and predict---------')
     xgb_model = get_model('XGB')
     gbdt_model = get_model('GBDT')
     xgb_weight_list = []  # xgb权值列表
@@ -585,7 +603,7 @@ def multiply_model_evaluate(valid_set, test_set, features):
     f1_score_list = []  # f1分数列表
     auc_score_list = []  # auc分数列表
 
-    xgb_weight = 0.1
+    xgb_weight = 0.85
     while xgb_weight < 1.0:
         x_valid = valid_set[features]
         y_valid = valid_set['label']
@@ -598,7 +616,6 @@ def multiply_model_evaluate(valid_set, test_set, features):
         valid_set['pred'] = y_pred_prob  # 概率
         valid_set['predict_label'] = valid_set['pred'].apply(lambda x: 1 if x >= 0.5 else 0)  # 基于概率上标签
         y_pred = valid_set['predict_label'].values  # 预测的标签
-        xgb_weight += 0.01  # 权值增加
         auc_score = roc_auc_score(y_valid, y_pred_prob)  # auc
 
         # 打印评估结果
@@ -618,6 +635,36 @@ def multiply_model_evaluate(valid_set, test_set, features):
         f1_score_list.append(f1_score(y_valid.values, y_pred))
         auc_score_list.append(auc_score)
 
+        if xgb_weight == 0.85:  # 最佳权重
+            # # 绘制roc曲线
+            # positive_rate = 1 / (valid_set[valid_set['label'] == 1].shape[0])  # 正样本刻度
+            # negative_rate = 1 / (valid_set[valid_set['label'] == 0].shape[0])  # 负样本刻度
+            # temp_dict = {'label': y_valid, 'pred_prob': y_pred_prob}
+            # temp = pd.DataFrame(temp_dict)
+            # temp.sort_values('pred_prob', inplace=True, ascending=False)  # 基于预测概率倒序排序
+            # draw_roc_line(positive_rate, negative_rate, list(temp['label']), auc_score)
+            # # 绘制混淆矩阵
+            # draw_confuse_matrix(list(y_valid), list(y_pred))
+            #
+            # # 绘制P-R曲线
+            # precision, recall, _ = precision_recall_curve(y_valid, y_pred_prob)
+            # draw_pr_curve(recall, precision)
+
+            # 测试
+            test_x = test_set[features]
+            # 加权概率
+            xgb_pred_prob = xgb_model.predict_proba(test_x)[:, 1]
+            gbdt_pred_prob = gbdt_model.predict_proba(test_x)[:, 1]
+            y_pred_prob = xgb_weight * xgb_pred_prob + (1 - xgb_weight) * gbdt_pred_prob
+            test_set['pred'] = y_pred_prob  # 概率
+            test_set['label'] = test_set['pred'].apply(lambda x: 1 if x >= 0.5 else 0)  # 基于概率上标签
+            summit_file = test_set[['pid', 'fid', 'pred', 'label']].copy()
+            summit_file.columns = ['pid', 'fid', 'pred', 'label']
+            summit_file.to_csv('summit.csv', columns=['pid', 'fid', 'pred', 'label'], index=False)
+            get_fina_result(1)  # 获取最终结果 模型选择结果：0代表单模，１代表多模
+            break
+        xgb_weight += 0.05  # 权值增加
+
     # 将评估结果形成csv文件
     show_table_dict = {
         'xgb_weight': xgb_weight_list,
@@ -630,10 +677,12 @@ def multiply_model_evaluate(valid_set, test_set, features):
     }
     show_table_df = pd.DataFrame(show_table_dict)
     show_table_df.to_csv('show_table.csv', index=False)  # 不要索引
+    print('Process: multiply model train, assess and predict Done!')
 
 
-def get_fina_result():
+def get_fina_result(choice):
     """
+    :param choice:　模型选择结果：0代表单模，１代表多模
     生成最终流失的1000个fid
     :return:
     """
@@ -645,13 +694,16 @@ def get_fina_result():
     res['fid_count'] = temp['count']
     res['final_probability'] = res.apply(lambda x: x['pred'] / x['fid_count'], axis=1)  # 二者相除得出流失的概率
     res = (res.sort_values('final_probability', ascending=False)).copy()  # 降序排序
-    res.to_csv('final_disappear_fid.csv', columns=['fid', 'final_probability'], index=False)
+    if choice:
+        res.to_csv('final_disappear_fid_multiply_model.csv', columns=['fid', 'final_probability'], index=False)
+    else:
+        res.to_csv('final_disappear_fid_single_model_gbdt.csv', columns=['fid', 'final_probability'], index=False)
 
 
 if __name__ == '__main__':
-    single_model_train_and_predict('XGB')  # 单模训练
-    # multiply_model_merging()  # 多模融合
-    # get_fina_result()　# 获取最终结果
+    single_model_train_and_predict('GBDT')  # GBDT训练、评估与预测
+    # single_model_train_and_predict('XGB')  # XGB训练、评估与预测
+
     # df_draw = pd.read_csv('show_table.csv')
     # # df_draw.plot(kind='bar')  # 柱状图
     # # df_draw['AUC_score'].plot(kind='pie')  # 饼图
